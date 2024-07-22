@@ -52,7 +52,8 @@ class HighchartsWidget extends HTMLElement {
                 name: measure.label,
                 data: [],
                 key: measure.key,
-                type: 'line'
+                type: 'line',
+                allowPointSelect: true
             }
         });
 
