@@ -80,7 +80,19 @@ class HighchartsWidget extends HTMLElement {
             yAxis: {
                 type: 'linear'
             },
-            series
+            series,
+            plotOptions: {
+                series: {
+                    cursor: 'pointer',
+                    point: {
+                        events: {
+                            click: function() {
+                                console.log('Point clicked', this);
+                            }
+                        }
+                    }
+                }
+            }
         }
 
 
