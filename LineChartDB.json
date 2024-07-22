@@ -1,0 +1,41 @@
+{
+	"name": "Line Chart (Webpack + DB test)",
+	"description": "Highcharts line chart with data binding",
+	"eula": "",
+	"vendor": "",
+	"license": "",
+	"id": "com.sap.sample.linechartdb",
+	"newInstancePrefix": "LineChartDB",
+	"version": "0.0.1",
+	"webcomponents": [
+        {
+			"kind": "main",
+			"tag": "com-sap-sample-linechartdb",
+            "url": "https://belindaxo.github.io/linechart-databinding-test/dist/bundle.js",
+            "integrity": "",
+            "ignoreIntegrity" : true
+        }
+    ],
+	"properties": {
+	},
+	"methods": {
+	},
+	"events": {
+	},
+    "dataBindings": {
+        "dataBinding": {
+            "feeds": [
+                {
+                    "id": "dimensions",
+                    "description": "Dimensions",
+                    "type": "dimension"
+                },
+                {
+                    "id": "measures",
+                    "description": "Measures",
+                    "type": "mainStructureMember"
+                }
+            ]
+        }
+    }
+}
