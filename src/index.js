@@ -22,34 +22,50 @@ class HighchartsWidget extends HTMLElement {
         this.shadowRoot.innerHTML = `
             <div id="container" style="width: 100%; height: 100%;"></div>
         `;
-        // Render the Highcharts chart
-        this._renderChart();
+        this._props = {};
     }
-    _renderChart() {
-        const dataBinding = this.dataBinding;
-        if (!dataBinding || dataBinding.state !== 'success') { return; }
 
-        const { data, metadata } = dataBinding;
-        const {dimensions, measures } = parseMetadata(metadata);
-        const categoryData = [];
-        const series = measures.map(measure => {
-            return {
-                name: measure.label,
-                id: measure.id,
-                data: [],
-                key: measure.key
-            }
-        });
+    onCustomWidgetBeforeUpdate(changedProperties) {
+        this._props = { ...this._props, ...changedProperties };
+    }
 
-        data.forEach(row => {
-            categoryData.push(dimensions.map(dimension => {
-                return row[dimension.key].label;
-            }).join('/'));
-            series.forEach(series => {
-                series.data.push(row[series.key].raw);
+    onCustomWidgetAfterUpdate(changedProperties) {
+        if ("dataBinding" in changedProperties) {
+            this._updateData(changedProperties.dataBinding);
+        }
+    }
+
+    _updateData(dataBinding) {
+        console.log('dataBinding: ', dataBinding);
+        if(!dataBinding) {
+            console.error('dataBinding is undefined');
+        }
+        if(!dataBinding || !dataBinding.data) {
+            console.error('dataBinding.data is undefined');
+        }
+
+        if (dataBinding && Array.isArray(dataBinding.data)) {
+            const data = dataBinding.data.map(row => {
+                console.log('row: ', row);
+
+                if (row.dimensions_0 && row.measures_0) {
+                    return {
+                        dimension: row.dimensions_0.label,
+                        measure: row.measures_0.raw
+                    }
+                }
             });
-        });
-        
+
+            this._renderChart(data);
+        } else {
+            console.error('Data is not an array: ', dataBinding && dataBinding.data);
+        }
+    }
+
+
+    _renderChart(data) {
+        console.log('data', data);
+        console.log(this.shadowRoot.getElementById('container'));
         Highcharts.chart(this.shadowRoot.getElementById('container'), {
             chart: {
                 type: 'line'
@@ -58,9 +74,12 @@ class HighchartsWidget extends HTMLElement {
                 text: 'Line Chart with DataBinding'
             },
             xAxis: {
-                categories: categoryData
+                categories: data.map(d => d.dimension)
             },
-            series: series
+            series: [{
+                name: 'Values',
+                data: data.map(d => d.measure)
+            }]
         });
     }
 }
