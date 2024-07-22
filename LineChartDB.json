@@ -17,6 +17,14 @@
         }
     ],
 	"properties": {
+        "width": {
+            "type": "integer",
+            "default": 600
+        },
+        "height": {
+            "type": "integer",
+            "default": 400
+        }
 	},
 	"methods": {
 	},
