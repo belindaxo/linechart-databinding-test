@@ -14,6 +14,13 @@
             "url": "https://belindaxo.github.io/linechart-databinding-test/dist/bundle.js",
             "integrity": "",
             "ignoreIntegrity" : true
+        },
+        {
+            "kind": "styling",
+            "tag": "com-sap-sample-linechartdb-aps",
+            "url": "https://belindaxo.github.io/linechart-databinding-test/dist/bundle.js",
+            "integrity": "",
+            "ignoreIntegrity" : true
         }
     ],
 	"properties": {
@@ -24,11 +31,34 @@
         "height": {
             "type": "integer",
             "default": 400
+        },
+        "title": {
+            "type": "string",
+            "default": "Line Chart"
         }
 	},
 	"methods": {
+        "setTitle": {
+            "description": "Sets the title of the chart.",
+            "parameters": [
+                {
+                    "name": "newTitle",
+                    "type": "string",
+                    "description": "The new title of the chart."
+                }
+            ],
+            "body": "this.title = newTitle;"
+        },
+        "getTitle": {
+            "returnType": "string",
+            "description": "Returns the title of the chart.",
+            "body": "return this.title;"
+        }
 	},
 	"events": {
+        "onClick": {
+            "description": "Called when the user clicks the widget."
+        }
 	},
     "dataBindings": {
         "dataBinding": {
