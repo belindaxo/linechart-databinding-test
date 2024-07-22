@@ -52,8 +52,7 @@ class HighchartsWidget extends HTMLElement {
                 name: measure.label,
                 data: [],
                 key: measure.key,
-                type: 'line',
-                allowPointSelect: true
+                type: 'line'
             }
         });
 
@@ -80,19 +79,7 @@ class HighchartsWidget extends HTMLElement {
             yAxis: {
                 type: 'linear'
             },
-            series,
-            plotOptions: {
-                series: {
-                    cursor: 'pointer',
-                    point: {
-                        events: {
-                            click: function() {
-                                console.log('Point clicked', this);
-                            }
-                        }
-                    }
-                }
-            }
+            series
         }
 
 

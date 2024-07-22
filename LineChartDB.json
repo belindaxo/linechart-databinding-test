@@ -30,7 +30,6 @@
 	},
 	"events": {
 	},
-    "supportsLinkedAnalysisFilterOnSelection": true,
     "dataBindings": {
         "dataBinding": {
             "feeds": [
