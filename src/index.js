@@ -35,6 +35,7 @@ class HighchartsWidget extends HTMLElement {
         const series = measures.map(measure => {
             return {
                 name: measure.label,
+                id: measure.id,
                 data: [],
                 key: measure.key
             }
