@@ -14,7 +14,7 @@ var parseMetadata = metadata => {
     }
     return { dimensions, measures, dimensionsMap, measuresMap };
 }
-
+(function () {
 class HighchartsWidget extends HTMLElement {
     constructor() {
         super();
@@ -87,3 +87,4 @@ class HighchartsWidget extends HTMLElement {
     }
 }
 customElements.define('com-sap-sample-linechartdb', HighchartsWidget);
+})();
