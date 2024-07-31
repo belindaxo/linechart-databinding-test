@@ -72,7 +72,7 @@ class HighchartsWidget extends HTMLElement {
                 type: 'line',
                 events: {
                     click: (event) => {
-                        const point = this._renderChart.series[0].searchPoint(event, true);
+                        const point = this._chart.series[0].searchPoint(event, true);
                         if (point) {
                             this._handlePointClick(point);
                         }
@@ -110,22 +110,28 @@ class HighchartsWidget extends HTMLElement {
     }
 
     _handlePointClick(point) {
+        console.log('Point object:', point);
+
         const dataBinding = this.dataBinding;
         const metadata = dataBinding.metadata;
         const { dimensions } = parseMetadata(metadata);
         const [dimension] = dimensions;
 
-        const label = point.category;
+        const label = point.category || point.options.x || point.name;
+        console.log('Label:', label);
         const key = dimension.key;
         const dimensionId = dimension.id;
         const selectedItem = dataBinding.data.find(item => item[key].label === label);
+        console.log('Selected item:', selectedItem);
 
         const linkedAnalysis = this.dataBindings.getDataBinding('dataBinding').getLinkedAnalysis();
         if (selectedItem) {
             const selection = {};
             selection[dimensionId] = selectedItem[key].id;
+            console.log('Setting filter with selection:', selection); // Log the filter selection
             linkedAnalysis.setFilters(selection);
         } else {
+            console.log('Removing filters'); // Log when filters are removed
             linkedAnalysis.clearFilters();
         }
     }
