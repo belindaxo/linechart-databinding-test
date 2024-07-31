@@ -83,34 +83,36 @@ class HighchartsWidget extends HTMLElement {
                 series: {
                     allowPointSelect: true,
                     cursor: 'pointer',
-                    events: {
-                        click: function (event) {
-                            console.log(event.point);
-                            if (dataBinding.getLinkedAnalysis().isDataPointSelectionEnabled()) {
-                                const dimensionFilters = [];
-                                const measuresFilters = [];
-                                for (const key in event.point) {
-                                    const value = event.point[key];
-                                    if (key === 'category') {
-                                        const dimensions = value.split('/');
-                                        dimensions.forEach((dimension, index) => {
-                                            const dimensionKey = metadata.dimensions[index].key;
-                                            dimensionFilters.push({
-                                                key: dimensionKey,
-                                                value: dimension
+                    points: {
+                        events: {
+                            click: function (event) {
+                                console.log(event.point);
+                                if (dataBinding.getLinkedAnalysis().isDataPointSelectionEnabled()) {
+                                    const dimensionFilters = [];
+                                    const measuresFilters = [];
+                                    for (const key in event.point) {
+                                        const value = event.point[key];
+                                        if (key === 'category') {
+                                            const dimensions = value.split('/');
+                                            dimensions.forEach((dimension, index) => {
+                                                const dimensionKey = metadata.dimensions[index].key;
+                                                dimensionFilters.push({
+                                                    key: dimensionKey,
+                                                    value: dimension
+                                                });
                                             });
-                                        });
-                                    } else {
-                                        measuresFilters.push({
-                                            key,
-                                            value
-                                        });
+                                        } else {
+                                            measuresFilters.push({
+                                                key,
+                                                value
+                                            });
+                                        }
                                     }
+                                    dataBinding.getLinkedAnalysis().setDataPointSelection({
+                                        dimensions: dimensionFilters,
+                                        measures: measuresFilters
+                                    });
                                 }
-                                dataBinding.getLinkedAnalysis().setDataPointSelection({
-                                    dimensions: dimensionFilters,
-                                    measures: measuresFilters
-                                });
                             }
                         }
                     }
