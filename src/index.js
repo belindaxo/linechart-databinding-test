@@ -65,9 +65,19 @@ class HighchartsWidget extends HTMLElement {
             });
         });
 
+
+
         const chartOptions = {
             chart: {
-                type: 'line'
+                type: 'line',
+                events: {
+                    click: (event) => {
+                        const point = this._renderChart.series[0].searchPoint(event, true);
+                        if (point) {
+                            this._handlePointClick(point);
+                        }
+                    }
+                }
             },
             title: {
                 text: 'Line Chart with DataBinding'
@@ -83,37 +93,11 @@ class HighchartsWidget extends HTMLElement {
                 series: {
                     allowPointSelect: true,
                     cursor: 'pointer',
-                    points: {
+                    point: {
                         events: {
-                            click: function (event) {
-                                console.log(event.point);
-                                if (dataBinding.getLinkedAnalysis().isDataPointSelectionEnabled()) {
-                                    const dimensionFilters = [];
-                                    const measuresFilters = [];
-                                    for (const key in event.point) {
-                                        const value = event.point[key];
-                                        if (key === 'category') {
-                                            const dimensions = value.split('/');
-                                            dimensions.forEach((dimension, index) => {
-                                                const dimensionKey = metadata.dimensions[index].key;
-                                                dimensionFilters.push({
-                                                    key: dimensionKey,
-                                                    value: dimension
-                                                });
-                                            });
-                                        } else {
-                                            measuresFilters.push({
-                                                key,
-                                                value
-                                            });
-                                        }
-                                    }
-                                    dataBinding.getLinkedAnalysis().setDataPointSelection({
-                                        dimensions: dimensionFilters,
-                                        measures: measuresFilters
-                                    });
-                                }
-                            }
+                            select: function (event) {
+                                this._handlePointClick(event.point);
+                            }.bind(this)
                         }
                     }
                 }
@@ -122,7 +106,28 @@ class HighchartsWidget extends HTMLElement {
         }
 
 
-        Highcharts.chart(this.shadowRoot.getElementById('container'), chartOptions);
+        this._chart = Highcharts.chart(this.shadowRoot.getElementById('container'), chartOptions);
+    }
+
+    _handlePointClick(point) {
+        const dataBinding = this.dataBinding;
+        const metadata = dataBinding.metadata;
+        const { dimensions } = parseMetadata(metadata);
+        const [dimension] = dimensions;
+
+        const label = point.category;
+        const key = dimension.key;
+        const dimensionId = dimension.id;
+        const selectedItem = dataBinding.data.find(item => item[key].label === label);
+
+        const linkedAnalysis = this.dataBindings.getDataBinding('dataBinding').getLinkedAnalysis();
+        if (selectedItem) {
+            const selection = {};
+            selection[dimensionId] = selectedItem[key].id;
+            linkedAnalysis.setFilters(selection);
+        } else {
+            linkedAnalysis.clearFilters();
+        }
     }
 }
 customElements.define('com-sap-sample-linechartdb', HighchartsWidget);
