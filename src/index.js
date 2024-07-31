@@ -72,9 +72,12 @@ class HighchartsWidget extends HTMLElement {
                 type: 'line',
                 events: {
                     click: (event) => {
+                        console.log('Chart click event:', event);
                         const point = this._chart.series[0].searchPoint(event, true);
                         if (point) {
-                            this._handlePointClick(point);
+                            this._handlePointClick({ point });
+                        } else {
+                            console.error('Point is undefined');
                         }
                     }
                 }
@@ -95,8 +98,9 @@ class HighchartsWidget extends HTMLElement {
                     cursor: 'pointer',
                     point: {
                         events: {
-                            select: function (event) {
-                                this._handlePointClick(event.point);
+                            click: function (event) {
+                                console.log('Point click event:', event);
+                                this._handlePointClick(event);
                             }.bind(this)
                         }
                     }
@@ -109,7 +113,14 @@ class HighchartsWidget extends HTMLElement {
         this._chart = Highcharts.chart(this.shadowRoot.getElementById('container'), chartOptions);
     }
 
-    _handlePointClick(point) {
+    _handlePointClick(event) {
+        console.log('Event object:', event);
+
+        const point = event.point;
+        if (!point) {
+            console.error('Point is undefined');
+            return;
+        }
         console.log('Point object:', point);
 
         const dataBinding = this.dataBinding;
