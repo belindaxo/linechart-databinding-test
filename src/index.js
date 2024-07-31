@@ -79,6 +79,43 @@ class HighchartsWidget extends HTMLElement {
             yAxis: {
                 type: 'linear'
             },
+            plotOptions: {
+                series: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    events: {
+                        click: function (event) {
+                            console.log(event.point);
+                            if (dataBinding.getLinkedAnalysis().isDataPointSelectionEnabled()) {
+                                const dimensionFilters = [];
+                                const measuresFilters = [];
+                                for (const key in event.point) {
+                                    const value = event.point[key];
+                                    if (key === 'category') {
+                                        const dimensions = value.split('/');
+                                        dimensions.forEach((dimension, index) => {
+                                            const dimensionKey = metadata.dimensions[index].key;
+                                            dimensionFilters.push({
+                                                key: dimensionKey,
+                                                value: dimension
+                                            });
+                                        });
+                                    } else {
+                                        measuresFilters.push({
+                                            key,
+                                            value
+                                        });
+                                    }
+                                }
+                                dataBinding.getLinkedAnalysis().setDataPointSelection({
+                                    dimensions: dimensionFilters,
+                                    measures: measuresFilters
+                                });
+                            }
+                        }
+                    }
+                }
+            },
             series
         }
 
