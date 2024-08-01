@@ -22,8 +22,17 @@
             plotOptions: {
                 series: {
                     allowPointSelect: true,
-                    inactiveOtherPoints: true,
-                    cursor: 'pointer'
+                    cursor: 'pointer',
+                    point: {
+                        events: {
+                            select: function () {
+                                alert('Point selected: ' + this.category + ', ' + this.y);
+                            },
+                            unselect: function () {
+                                alert('Point unselected: ' + this.category + ', ' + this.y);
+                            }
+                        }
+                    }
                 }
             },
             series: [{
@@ -31,6 +40,8 @@
                 data: [1, 3, 2, 4, 6, 8, 7, 5, 4, 6, 8, 9]
             }]
         });
+
+        
     </script>
 </body>
 </html>
