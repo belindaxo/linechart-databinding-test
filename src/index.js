@@ -69,13 +69,7 @@ class HighchartsWidget extends HTMLElement {
 
         const chartOptions = {
             chart: {
-                type: 'line'//,
-                //events: {
-                //    click: function (event) {
-                //        console.log('Plot background click event:', event);
-                //        this._handleBackgroundClick(event);
-                //    }
-                //}
+                type: 'line'
             },
             title: {
                 text: 'Line Chart with DataBinding'
@@ -93,17 +87,14 @@ class HighchartsWidget extends HTMLElement {
                     cursor: 'pointer',
                     point: {
                         events: {
-                            // click: function (event) {
-                            //     console.log('Point click event:', event);
-                            //     this._handlePointClick(event);
-                            // }.bind(this)
-                            select: function () {
-                                alert('Point selected');
-                                
-                            },
-                            unselect: function () {
-                                alert('Point unselected');
-                            }
+                            select: function (event) {
+                                const point = event.target;
+                                this._handlePointSelect(point);
+                            }.bind(this),
+                            unselect: function (event) {
+                                const point = event.target;
+                                this._handlePointUnselect(point);
+                            }.bind(this)
                         }
                     }
                 }
@@ -115,48 +106,35 @@ class HighchartsWidget extends HTMLElement {
         this._chart = Highcharts.chart(this.shadowRoot.getElementById('container'), chartOptions);
     }
 
-    
+    _handlePointSelect(point) {
+        const dataBinding = this.dataBinding;
+        const metadata = dataBinding.metadata;
+        const { dimensions } = parseMetadata(metadata);
+        const [dimension] = dimensions;
 
-    // _handlePointClick(event) {
-    //     console.log('Event object:', event);
+        const label = point.category;
+        const key = dimension.key;
+        const dimensionId = dimension.id;
+        const selectedItem = dataBinding.data.find(item => item[key].label === label);
 
-    //     const point = event.point;
-    //     if (!point) {
-    //         console.error('Point is undefined');
-    //         return;
-    //     }
-    //     console.log('Point object:', point);
+        const linkedAnalysis = this.dataBindings.getDataBinding('dataBinding').getLinkedAnalysis();
 
-    //     const dataBinding = this.dataBinding;
-    //     const metadata = dataBinding.metadata;
-    //     const { dimensions } = parseMetadata(metadata);
-    //     const [dimension] = dimensions;
+        if (selectedItem) {
+            const selection = [];
+            selection[dimensionId] = selectedItem[key].id;
+            linkedAnalysis.setFilters(selection);
+            this._selectedPoint = point;
+        }
+    }
 
-    //     const label = point.category; //|| point.options.x || point.name;
-    //     console.log('Label:', label);
-    //     const key = dimension.key;
-    //     const dimensionId = dimension.id;
-    //     const selectedItem = dataBinding.data.find(item => item[key].label === label);
-    //     console.log('Selected item:', selectedItem);
+    _handlePointUnselect(point) {
+        const linkedAnalysis = this.dataBindings.getDataBinding('dataBinding').getLinkedAnalysis();
+        linkedAnalysis.removeFilters();
 
-    //     const linkedAnalysis = this.dataBindings.getDataBinding('dataBinding').getLinkedAnalysis();
-    //     if (selectedItem) {
-    //         const selection = {};
-    //         selection[dimensionId] = selectedItem[key].id;
-    //         console.log('Setting filter with selection:', selection); // Log the filter selection
-    //         linkedAnalysis.setFilters(selection);
-    //     } else {
-    //         console.log('Removing filters'); // Log when filters are removed
-    //         linkedAnalysis.removeFilters();
-    //     }
-    // }
-
-    // _handleBackgroundClick(event) {
-    //     console.log('Event object:', event);
-    //     const linkedAnalysis = this.dataBindings.getDataBinding('dataBinding').getLinkedAnalysis();
-    //     console.log('Removing filters'); // Log when filters are removed
-    //     linkedAnalysis.removeFilters();
-    // }
+        if (this._selectedPoint) {
+            this._selectedPoint = null;
+        }
+    }
 }
 customElements.define('com-sap-sample-linechartdb', HighchartsWidget);
 })();
