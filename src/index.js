@@ -93,10 +93,17 @@ class HighchartsWidget extends HTMLElement {
                     cursor: 'pointer',
                     point: {
                         events: {
-                            click: function (event) {
-                                console.log('Point click event:', event);
-                                this._handlePointClick(event);
-                            }.bind(this)
+                            // click: function (event) {
+                            //     console.log('Point click event:', event);
+                            //     this._handlePointClick(event);
+                            // }.bind(this)
+                            select: function () {
+                                alert('Point selected');
+                                
+                            },
+                            unselect: function () {
+                                alert('Point unselected');
+                            }
                         }
                     }
                 }
@@ -110,39 +117,39 @@ class HighchartsWidget extends HTMLElement {
 
     
 
-    _handlePointClick(event) {
-        console.log('Event object:', event);
+    // _handlePointClick(event) {
+    //     console.log('Event object:', event);
 
-        const point = event.point;
-        if (!point) {
-            console.error('Point is undefined');
-            return;
-        }
-        console.log('Point object:', point);
+    //     const point = event.point;
+    //     if (!point) {
+    //         console.error('Point is undefined');
+    //         return;
+    //     }
+    //     console.log('Point object:', point);
 
-        const dataBinding = this.dataBinding;
-        const metadata = dataBinding.metadata;
-        const { dimensions } = parseMetadata(metadata);
-        const [dimension] = dimensions;
+    //     const dataBinding = this.dataBinding;
+    //     const metadata = dataBinding.metadata;
+    //     const { dimensions } = parseMetadata(metadata);
+    //     const [dimension] = dimensions;
 
-        const label = point.category; //|| point.options.x || point.name;
-        console.log('Label:', label);
-        const key = dimension.key;
-        const dimensionId = dimension.id;
-        const selectedItem = dataBinding.data.find(item => item[key].label === label);
-        console.log('Selected item:', selectedItem);
+    //     const label = point.category; //|| point.options.x || point.name;
+    //     console.log('Label:', label);
+    //     const key = dimension.key;
+    //     const dimensionId = dimension.id;
+    //     const selectedItem = dataBinding.data.find(item => item[key].label === label);
+    //     console.log('Selected item:', selectedItem);
 
-        const linkedAnalysis = this.dataBindings.getDataBinding('dataBinding').getLinkedAnalysis();
-        if (selectedItem) {
-            const selection = {};
-            selection[dimensionId] = selectedItem[key].id;
-            console.log('Setting filter with selection:', selection); // Log the filter selection
-            linkedAnalysis.setFilters(selection);
-        } else {
-            console.log('Removing filters'); // Log when filters are removed
-            linkedAnalysis.removeFilters();
-        }
-    }
+    //     const linkedAnalysis = this.dataBindings.getDataBinding('dataBinding').getLinkedAnalysis();
+    //     if (selectedItem) {
+    //         const selection = {};
+    //         selection[dimensionId] = selectedItem[key].id;
+    //         console.log('Setting filter with selection:', selection); // Log the filter selection
+    //         linkedAnalysis.setFilters(selection);
+    //     } else {
+    //         console.log('Removing filters'); // Log when filters are removed
+    //         linkedAnalysis.removeFilters();
+    //     }
+    // }
 
     // _handleBackgroundClick(event) {
     //     console.log('Event object:', event);
