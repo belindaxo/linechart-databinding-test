@@ -69,18 +69,7 @@ class HighchartsWidget extends HTMLElement {
 
         const chartOptions = {
             chart: {
-                type: 'line',
-                events: {
-                    click: (event) => {
-                        console.log('Chart click event:', event);
-                        const point = this._chart.series[0].searchPoint(event, true);
-                        if (point) {
-                            this._handlePointClick({ point });
-                        } else {
-                            console.error('Point is undefined');
-                        }
-                    }
-                }
+                type: 'line'
             },
             title: {
                 text: 'Line Chart with DataBinding'
@@ -128,7 +117,7 @@ class HighchartsWidget extends HTMLElement {
         const { dimensions } = parseMetadata(metadata);
         const [dimension] = dimensions;
 
-        const label = point.category || point.options.x || point.name;
+        const label = point.category; //|| point.options.x || point.name;
         console.log('Label:', label);
         const key = dimension.key;
         const dimensionId = dimension.id;
@@ -140,10 +129,11 @@ class HighchartsWidget extends HTMLElement {
             const selection = {};
             selection[dimensionId] = selectedItem[key].id;
             console.log('Setting filter with selection:', selection); // Log the filter selection
+            //linkedAnalysis.removeFilters();
             linkedAnalysis.setFilters(selection);
         } else {
             console.log('Removing filters'); // Log when filters are removed
-            linkedAnalysis.clearFilters();
+            linkedAnalysis.removeFilters();
         }
     }
 }
