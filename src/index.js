@@ -69,7 +69,13 @@ class HighchartsWidget extends HTMLElement {
 
         const chartOptions = {
             chart: {
-                type: 'line'
+                type: 'line',
+                events: {
+                    click: function (event) {
+                        console.log('Plot background click event:', event);
+                        this._handleBackgroundClick(event);
+                    }
+                }
             },
             title: {
                 text: 'Line Chart with DataBinding'
@@ -129,12 +135,18 @@ class HighchartsWidget extends HTMLElement {
             const selection = {};
             selection[dimensionId] = selectedItem[key].id;
             console.log('Setting filter with selection:', selection); // Log the filter selection
-            //linkedAnalysis.removeFilters();
             linkedAnalysis.setFilters(selection);
         } else {
             console.log('Removing filters'); // Log when filters are removed
             linkedAnalysis.removeFilters();
         }
+    }
+
+    _handleBackgroundClick(event) {
+        console.log('Event object:', event);
+        const linkedAnalysis = this.dataBindings.getDataBinding('dataBinding').getLinkedAnalysis();
+        console.log('Removing filters'); // Log when filters are removed
+        linkedAnalysis.removeFilters();
     }
 }
 customElements.define('com-sap-sample-linechartdb', HighchartsWidget);
