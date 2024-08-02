@@ -73,7 +73,9 @@ class HighchartsWidget extends HTMLElement {
                 type: 'line',
                 events: {
                     click: function (event) {
-                        this._handleBackgroundClick(event);
+                        if (!event.point) {
+                            this._handleBackgroundClick(event);
+                        }
                     }.bind(this)
                 }
             },
@@ -108,6 +110,12 @@ class HighchartsWidget extends HTMLElement {
 
 
         this._chart = Highcharts.chart(this.shadowRoot.getElementById('container'), chartOptions);
+
+        this.shadowRoot.getElementById('container').addEventListener('click', (e) => {
+            if (!e.target.closest('.highcharts-point')) {
+                this._handleBackgroundClick();
+            }
+        })
     }
 
     _handlePointClick(event) {
@@ -151,14 +159,12 @@ class HighchartsWidget extends HTMLElement {
     }
 
     _handleBackgroundClick(event) {
-        if (!event.target || event.target !== this._chart.container) {
-            return;
-        }
-
         if (this._selectedPoint) {
             const linkedAnalysis = this.dataBindings.getDataBinding('dataBinding').getLinkedAnalysis();
-            console.log('Removing filters'); // Log when filters are removed
-            linkedAnalysis.removeFilters();
+            console.log('Removing filters due to background click'); // Log background click filter removal
+            linkedAnalysis.removeFilters().catch(error => {
+                console.error('Error removing filters:', error);
+            });
             this._selectedPoint.select(false);
             this._selectedPoint = null;
         }
