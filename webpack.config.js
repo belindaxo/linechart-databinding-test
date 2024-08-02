@@ -19,4 +19,11 @@ module.exports = {
       },
     ],
   },
+  resolve: {
+    alias: {
+      highcharts: path.resolve(__dirname, 'node_modules/highcharts'),
+    },
+    extensions: ['.js'],
+    modules: [path.resolve(__dirname, 'src'), 'node_modules'],
+  },
 };
