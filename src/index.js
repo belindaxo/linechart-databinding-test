@@ -1,4 +1,6 @@
 import Highcharts from 'highcharts';
+import Exporting from 'highcharts/modules/exporting';
+Exporting(Highcharts);
 
 var parseMetadata = metadata => {
     const { dimensions: dimensionsMap, mainStructureMembers: measuresMap } = metadata;
@@ -103,6 +105,9 @@ class HighchartsWidget extends HTMLElement {
                         }
                     }
                 }
+            },
+            exporting: {
+                enabled: true
             },
             series
         }
