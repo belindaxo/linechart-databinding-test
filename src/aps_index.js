@@ -2,8 +2,7 @@
     let template = document.createElement('template');
     template.innerHTML = `
         <form id="form">
-            <fieldset>
-                <legend style="font-weight: bold;font-size: larger;"> Line Chart Properties </legend>
+                <legend style="font-weight: bold;font-size: large;"> Custom Chart Titles </legend>
                 <table>
                     <tr>
                         <td>Chart Title</td>
@@ -19,7 +18,6 @@
                     </tr>
                 </table>
                 <input type="submit" style="display:none;">
-            </fieldset>
         </form>
     `;
 
