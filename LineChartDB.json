@@ -4,6 +4,7 @@
 	"eula": "",
 	"vendor": "",
 	"license": "",
+    "supportsLinkedAnalysisFilterOnSelection": true,
 	"id": "com.sap.sample.linechartdb",
 	"newInstancePrefix": "LineChartDB",
 	"version": "0.0.1",

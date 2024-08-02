@@ -1,4 +1,6 @@
 import Highcharts from 'highcharts';
+import Exporting from 'highcharts/modules/exporting';
+Exporting(Highcharts);
 
 var parseMetadata = metadata => {
     const { dimensions: dimensionsMap, mainStructureMembers: measuresMap } = metadata;
@@ -22,6 +24,7 @@ class HighchartsWidget extends HTMLElement {
         this.shadowRoot.innerHTML = `
             <div id="container" style="width: 100%; height: 100%;"></div>
         `;
+        this._selectedPoint = null;
     }
 
     onCustomWidgetResize(width, height) {
@@ -65,6 +68,8 @@ class HighchartsWidget extends HTMLElement {
             });
         });
 
+
+
         const chartOptions = {
             chart: {
                 type: 'line'
@@ -79,12 +84,77 @@ class HighchartsWidget extends HTMLElement {
             yAxis: {
                 type: 'linear'
             },
+            plotOptions: {
+                line: {
+                    dataLabels: {
+                        enabled: true
+                    },
+                    enableMouseTracking: true
+                },
+                series: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    point: {
+                        events: {
+                            select: function (event) {
+                                this._handlePointClick(event);
+                            }.bind(this),
+                            unselect: function (event) {
+                                this._handlePointClick(event);
+                            }.bind(this)
+                        }
+                    }
+                }
+            },
+            exporting: {
+                enabled: true
+            },
             series
         }
+        this._chart = Highcharts.chart(this.shadowRoot.getElementById('container'), chartOptions);
+    }
 
+    _handlePointClick(event) {
+        console.log('Event object:', event);
 
-        Highcharts.chart(this.shadowRoot.getElementById('container'), chartOptions);
+        const point = event.target;
+        if (!point) {
+            console.error('Point is undefined');
+            return;
+        }
+
+        console.log('Point object:', point); 
+
+        const dataBinding = this.dataBinding;
+        const metadata = dataBinding.metadata;
+        const { dimensions } = parseMetadata(metadata);
+        const [dimension] = dimensions;
+
+        const label = point.category || point.options.x || point.name;
+        const key = dimension.key;
+        const dimensionId = dimension.id;
+        const selectedItem = dataBinding.data.find(item => item[key].label === label);
+ 
+        console.log('Selected item:', selectedItem); 
+
+        const linkedAnalysis = this.dataBindings.getDataBinding('dataBinding').getLinkedAnalysis();
+
+        if (event.type === 'select') {
+            if (selectedItem) {
+                const selection = {};
+                selection[dimensionId] = selectedItem[key].id;
+                console.log('Setting filter with selection:', selection); // Log the filter selection
+                linkedAnalysis.setFilters(selection);
+                this._selectedPoint = point;
+            }
+        } else if (event.type === 'unselect') {
+            console.log('Removing filters'); // Log when filters are removed
+            linkedAnalysis.removeFilters();
+            this._selectedPoint = null;
+        }
     }
 }
+
+    
 customElements.define('com-sap-sample-linechartdb', HighchartsWidget);
 })();
