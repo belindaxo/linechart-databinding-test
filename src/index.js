@@ -70,14 +70,7 @@ class HighchartsWidget extends HTMLElement {
 
         const chartOptions = {
             chart: {
-                type: 'line',
-                events: {
-                    click: function (event) {
-                        if (!event.point) {
-                            this._handleBackgroundClick(event);
-                        }
-                    }.bind(this)
-                }
+                type: 'line'
             },
             title: {
                 text: 'Line Chart with DataBinding'
