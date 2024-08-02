@@ -90,13 +90,9 @@ class HighchartsWidget extends HTMLElement {
                         events: {
                             select: function (event) {
                                 this._handlePointClick(event);
-                                event.preventDefault();
-                                event.stopPropagation();
                             }.bind(this),
                             unselect: function (event) {
                                 this._handlePointClick(event);
-                                event.preventDefault();
-                                event.stopPropagation();
                             }.bind(this)
                         }
                     }
@@ -104,15 +100,7 @@ class HighchartsWidget extends HTMLElement {
             },
             series
         }
-
-
         this._chart = Highcharts.chart(this.shadowRoot.getElementById('container'), chartOptions);
-
-        this.shadowRoot.getElementById('container').addEventListener('click', (e) => {
-            if (!e.target.closest('.highcharts-point')) {
-                this._handleBackgroundClick();
-            }
-        })
     }
 
     _handlePointClick(event) {
@@ -151,18 +139,6 @@ class HighchartsWidget extends HTMLElement {
         } else if (event.type === 'unselect') {
             console.log('Removing filters'); // Log when filters are removed
             linkedAnalysis.removeFilters();
-            this._selectedPoint = null;
-        }
-    }
-
-    _handleBackgroundClick(event) {
-        if (this._selectedPoint) {
-            const linkedAnalysis = this.dataBindings.getDataBinding('dataBinding').getLinkedAnalysis();
-            console.log('Removing filters due to background click'); // Log background click filter removal
-            linkedAnalysis.removeFilters().catch(error => {
-                console.error('Error removing filters:', error);
-            });
-            this._selectedPoint.select(false);
             this._selectedPoint = null;
         }
     }
