@@ -3,7 +3,7 @@
     template.innerHTML = `
         <form id="form">
             <fieldset>
-                <legend> Line Chart Properties </legend>
+                <legend style="font-weight: bold;font-size: larger;"> Line Chart Properties </legend>
                 <table>
                     <tr>
                         <td>Chart Title</td>
