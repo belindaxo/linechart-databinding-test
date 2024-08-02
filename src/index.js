@@ -90,9 +90,13 @@ class HighchartsWidget extends HTMLElement {
                         events: {
                             select: function (event) {
                                 this._handlePointClick(event);
+                                event.preventDefault();
+                                event.stopPropagation();
                             }.bind(this),
                             unselect: function (event) {
                                 this._handlePointClick(event);
+                                event.preventDefault();
+                                event.stopPropagation();
                             }.bind(this)
                         }
                     }
