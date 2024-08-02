@@ -83,6 +83,12 @@ class HighchartsWidget extends HTMLElement {
                 type: 'linear'
             },
             plotOptions: {
+                line: {
+                    dataLabels: {
+                        enabled: true
+                    },
+                    enableMouseTracking: true
+                },
                 series: {
                     allowPointSelect: true,
                     cursor: 'pointer',
