@@ -126,7 +126,7 @@ class HighchartsWidget extends HTMLElement {
         const { dimensions } = parseMetadata(metadata);
         const [dimension] = dimensions;
 
-        const label = point.category;
+        const label = point.category || point.options.x || point.name;
         const key = dimension.key;
         const dimensionId = dimension.id;
         const selectedItem = dataBinding.data.find(item => item[key].label === label);
