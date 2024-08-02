@@ -15,6 +15,13 @@
             "url": "https://belindaxo.github.io/linechart-databinding-test/dist/bundle.js",
             "integrity": "",
             "ignoreIntegrity" : true
+        },
+        {
+            "kind": "styling",
+            "tag": "com-sap-sample-linechartdb-aps",
+            "url": "https://belindaxo.github.io/linechart-databinding-test/dist/bundle.js",
+            "integrity": "",
+            "ignoreIntegrity" : true
         }
     ],
 	"properties": {
@@ -25,6 +32,21 @@
         "height": {
             "type": "integer",
             "default": 400
+        },
+        "chartTitle": {
+            "type": "string",
+            "description": "The title of the chart",
+            "default": "Line Chart"
+        },
+        "chartSubtitle": {
+            "type": "string",
+            "description": "The subtitle of the chart",
+            "default": ""
+        },
+        "yAxisTitle": {
+            "type": "string",
+            "description": "The title of the y-axis",
+            "default": ""
         }
 	},
 	"methods": {

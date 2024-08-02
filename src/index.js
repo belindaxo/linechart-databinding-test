@@ -38,6 +38,17 @@ class HighchartsWidget extends HTMLElement {
     onCustomWidgetDestroy() {
     }
 
+    static get observedAttributes() {
+        return ['chartTitle', 'chartSubtitle', 'yAxisTitle'];
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        if (oldValue !== newValue) {
+            this[name] = newValue;
+            this._renderChart();
+        }
+    }
+
     _renderChart() {
         const dataBinding = this.dataBinding;
         if (!dataBinding || dataBinding.state !== 'success') {
@@ -75,14 +86,20 @@ class HighchartsWidget extends HTMLElement {
                 type: 'line'
             },
             title: {
-                text: 'Line Chart with DataBinding'
+                text: this.chartTitle || 'Line Chart'
+            },
+            subtitle: {
+                text: this.chartSubtitle || ''
             },
             xAxis: { 
                 type: 'category',
                 categories: categoryData 
             },
             yAxis: {
-                type: 'linear'
+                type: 'linear',
+                title: {
+                    text: this.yAxisTitle || ''
+                }
             },
             plotOptions: {
                 line: {
