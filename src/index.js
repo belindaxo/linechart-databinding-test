@@ -86,13 +86,14 @@ class HighchartsWidget extends HTMLElement {
                 type: 'line'
             },
             title: {
-                text: this.chartTitle || 'Line Chart'
+                text: this.chartTitle || ''
             },
             subtitle: {
                 text: this.chartSubtitle || ''
             },
             xAxis: {
                 title: {
+                    enabled: true,
                     text: this.xAxisTitle || ''
                 }, 
                 type: 'category',
