@@ -76,7 +76,7 @@ class HighchartsWidget extends HTMLElement {
                 return row[dimension.key].label;
             }).join('/'));
             series.forEach(series => {
-                series.data.push(row[series.key].formatted);
+                series.data.push(row[series.key].raw);
             });
         });
 
