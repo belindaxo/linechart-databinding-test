@@ -16,6 +16,7 @@ var parseMetadata = metadata => {
     }
     return { dimensions, measures, dimensionsMap, measuresMap };
 }
+
 (function () {
 class HighchartsWidget extends HTMLElement {
     constructor() {
@@ -75,7 +76,7 @@ class HighchartsWidget extends HTMLElement {
                 return row[dimension.key].label;
             }).join('/'));
             series.forEach(series => {
-                series.data.push(row[series.key].raw);
+                series.data.push(row[series.key].formatted);
             });
         });
 
