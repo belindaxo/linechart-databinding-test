@@ -2,7 +2,7 @@
     let template = document.createElement('template');
     template.innerHTML = `
         <form id="form">
-                <legend style="font-weight: bold;font-size: large;"> Custom Chart Titles </legend>
+                <legend style="font-weight: bold;font-size: 18px;"> Text Properties </legend>
                 <table>
                     <tr>
                         <td>Chart Title</td>
@@ -11,6 +11,10 @@
                     <tr>
                         <td>Chart Subtitle</td>
                         <td><input id="chartSubtitle" type="text"></td>
+                    </tr>
+                    <tr>
+                        <td>X-Axis Title</td>
+                        <td><input id="xAxisTitle" type="text"></td>
                     </tr>
                     <tr>
                         <td>Y-Axis Title</td>
@@ -36,6 +40,7 @@
                     properties: {
                         chartTitle: this.chartTitle,
                         chartSubtitle: this.chartSubtitle,
+                        xAxisTitle: this.xAxisTitle,
                         yAxisTitle: this.yAxisTitle
                     }
                 }
@@ -56,6 +61,14 @@
 
         get chartSubtitle() {
             return this._shadowRoot.getElementById('chartSubtitle').value;
+        }
+
+        set xAxisTitle(value) {
+            this._shadowRoot.getElementById('xAxisTitle').value = value;
+        }
+
+        get xAxisTitle() {
+            return this._shadowRoot.getElementById('xAxisTitle').value;
         }
 
         set yAxisTitle(value) {

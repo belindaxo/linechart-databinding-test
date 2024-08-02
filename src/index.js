@@ -39,7 +39,7 @@ class HighchartsWidget extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ['chartTitle', 'chartSubtitle', 'yAxisTitle'];
+        return ['chartTitle', 'chartSubtitle', 'xAxisTitle', 'yAxisTitle'];
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
@@ -91,7 +91,10 @@ class HighchartsWidget extends HTMLElement {
             subtitle: {
                 text: this.chartSubtitle || ''
             },
-            xAxis: { 
+            xAxis: {
+                title: {
+                    text: this.xAxisTitle || ''
+                }, 
                 type: 'category',
                 categories: categoryData 
             },

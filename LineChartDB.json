@@ -36,11 +36,16 @@
         "chartTitle": {
             "type": "string",
             "description": "The title of the chart",
-            "default": "Line Chart"
+            "default": ""
         },
         "chartSubtitle": {
             "type": "string",
             "description": "The subtitle of the chart",
+            "default": ""
+        },
+        "xAxisTitle": {
+            "type": "string",
+            "description": "The title of the x-axis",
             "default": ""
         },
         "yAxisTitle": {
