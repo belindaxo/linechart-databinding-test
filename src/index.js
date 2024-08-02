@@ -22,6 +22,7 @@ class HighchartsWidget extends HTMLElement {
         this.shadowRoot.innerHTML = `
             <div id="container" style="width: 100%; height: 100%;"></div>
         `;
+        this._selectedPoint = null;
     }
 
     onCustomWidgetResize(width, height) {
@@ -69,7 +70,12 @@ class HighchartsWidget extends HTMLElement {
 
         const chartOptions = {
             chart: {
-                type: 'line'
+                type: 'line',
+                events: {
+                    click: function (event) {
+                        this._handleBackgroundClick(event);
+                    }.bind(this)
+                }
             },
             title: {
                 text: 'Line Chart with DataBinding'
@@ -105,7 +111,7 @@ class HighchartsWidget extends HTMLElement {
     }
 
     _handlePointClick(event) {
-        console.log('Event object:', event); // Log the event object to inspect its properties
+        console.log('Event object:', event);
 
         const point = event.target;
         if (!point) {
@@ -113,20 +119,19 @@ class HighchartsWidget extends HTMLElement {
             return;
         }
 
-        console.log('Point object:', point); // Log the point object to inspect its properties
+        console.log('Point object:', point); 
 
         const dataBinding = this.dataBinding;
         const metadata = dataBinding.metadata;
         const { dimensions } = parseMetadata(metadata);
         const [dimension] = dimensions;
 
-        const label = point.category || point.options.x || point.name;
+        const label = point.category;
         const key = dimension.key;
         const dimensionId = dimension.id;
         const selectedItem = dataBinding.data.find(item => item[key].label === label);
-
-        console.log('Label:', label); // Log the label to ensure it is correctly identified
-        console.log('Selected item:', selectedItem); // Log the selected item to ensure it is found
+ 
+        console.log('Selected item:', selectedItem); 
 
         const linkedAnalysis = this.dataBindings.getDataBinding('dataBinding').getLinkedAnalysis();
 
@@ -141,6 +146,20 @@ class HighchartsWidget extends HTMLElement {
         } else if (event.type === 'unselect') {
             console.log('Removing filters'); // Log when filters are removed
             linkedAnalysis.removeFilters();
+            this._selectedPoint = null;
+        }
+    }
+
+    _handleBackgroundClick(event) {
+        if (!event.target || event.target !== this._chart.container) {
+            return;
+        }
+
+        if (this._selectedPoint) {
+            const linkedAnalysis = this.dataBindings.getDataBinding('dataBinding').getLinkedAnalysis();
+            console.log('Removing filters'); // Log when filters are removed
+            linkedAnalysis.removeFilters();
+            this._selectedPoint.select(false);
             this._selectedPoint = null;
         }
     }
