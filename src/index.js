@@ -17,17 +17,6 @@ var parseMetadata = metadata => {
     return { dimensions, measures, dimensionsMap, measuresMap };
 }
 
-function formatDataLabels(value, scaleFactor, suffix) {
-    const scaledValue = value / scaleFactor;
-    return scaledValue.toFixed(scaledValue % 1 === 0 ? 0 : 2) + suffix;
-}
-
-function calculateMedian(values) {
-    values.sort((a, b) => a - b);
-    const mid = Math.floor(values.length / 2);
-    return values.length % 2 !== 0 ? values[mid] : (values[mid - 1] + values[mid]) / 2;
-}
-
 (function () {
 class HighchartsWidget extends HTMLElement {
     constructor() {
@@ -71,11 +60,8 @@ class HighchartsWidget extends HTMLElement {
         const { dimensions, measures } = parseMetadata(metadata);
         
         const categoryData = [];
-        const allValues = [];
 
         const series =  measures.map(measure => {
-            const measureData = data.map(row => row[measure.key].raw);
-            allValues.push(...measureData);
             return {
                 id: measure.id,
                 name: measure.label,
@@ -85,25 +71,13 @@ class HighchartsWidget extends HTMLElement {
             }
         });
 
-        const medianValue = calculateMedian(allValues);
-        let scaleFactor = 1;
-        let suffix = '';
-
-        if (medianValue >= 1e9) {
-            scaleFactor = 1e9;
-            suffix = 'b';
-        } else if (medianValue >= 1e6) {
-            scaleFactor = 1e6;
-            suffix = 'm';
-        } else if (medianValue >= 1e3) {
-            scaleFactor = 1e3;
-            suffix = 'k';
-        }
-
         data.forEach(row => {
             categoryData.push(dimensions.map(dimension => {
                 return row[dimension.key].label;
             }).join('/'));
+            series.forEach(series => {
+                series.data.push(row[series.key].raw);
+            });
         });
 
 
@@ -127,15 +101,12 @@ class HighchartsWidget extends HTMLElement {
                 title: {
                     enabled: false
                 }
-                //visible: false??
+                //visible: showYAxis || false
             },
             plotOptions: {
                 line: {
                     dataLabels: {
-                        enabled: true,
-                        formatter: function () {
-                            return formatDataLabels(this.y, scaleFactor, suffix);
-                        }
+                        enabled: true
                     },
                     enableMouseTracking: true
                 },
