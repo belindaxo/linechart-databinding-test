@@ -99,7 +99,7 @@ class HighchartsWidget extends HTMLElement {
                 default:
                     break;
             }
-            return scaledValue.toFixed(this.decimalPlaces) + suffix;
+            return scaledValue.toFixed(this.decimalPlaces);
         }
 
     
@@ -152,10 +152,8 @@ class HighchartsWidget extends HTMLElement {
             },
             tooltip: {
                 formatter: function () {
-                    const points = this.points.map(point => `${point.series.name}: ${numberFormat(point.y)}`);
-                    return [this.x, ...points];
-                },
-                split: true
+                    return `<b>${this.x}</b><br/>${this.series.name}: ${numberFormat(this.y)}`;
+                }
             },
             exporting: {
                 enabled: true

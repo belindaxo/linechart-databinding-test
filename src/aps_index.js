@@ -19,7 +19,7 @@
                         <td>Scale Format</td>
                         <td>
                             <select id="numberFormat">
-                                <option value="unformatted">Unformatted</option>
+                                <option value="unformatted" selected>Unformatted</option>
                                 <option value="k">Thousands (k)</option>
                                 <option value="m">Millions (m)</option>
                                 <option value="b">Billions (b)</option>
@@ -32,7 +32,7 @@
                             <select id="decimalPlaces">
                                 <option value="0">0</option>
                                 <option value="1">1</option>
-                                <option value="2">2</option>
+                                <option value="2" selected>2</option>
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                                 <option value="5">5</option>
@@ -50,6 +50,8 @@
             this._shadowRoot = this.attachShadow({ mode: 'open' });
             this._shadowRoot.appendChild(template.content.cloneNode(true));
             this._shadowRoot.getElementById('form').addEventListener('submit', this._submit.bind(this));
+            this._shadowRoot.getElementById('numberFormat').addEventListener('change', this._submit.bind(this));
+            this._shadowRoot.getElementById('decimalPlaces').addEventListener('change', this._submit.bind(this));
         }
 
         _submit(e) {
@@ -65,6 +67,8 @@
                 }
             }));
         }
+
+        
 
         set chartTitle(value) {
             this._shadowRoot.getElementById('chartTitle').value = value;
