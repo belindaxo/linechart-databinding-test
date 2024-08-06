@@ -152,7 +152,7 @@ class HighchartsWidget extends HTMLElement {
             },
             tooltip: {
                 formatter: function () {
-                    return `<b>${this.x}</b><br/>${this.series.name}: ${numberFormat(this.y)}`;
+                    return this.x + ': ' + numberFormat(this.y);
                 }
             },
             exporting: {
