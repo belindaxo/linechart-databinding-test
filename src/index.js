@@ -101,7 +101,7 @@ class HighchartsWidget extends HTMLElement {
                 title: {
                     enabled: false
                 }
-                //visible: showYAxis || false
+                
             },
             plotOptions: {
                 line: {
