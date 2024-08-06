@@ -151,7 +151,8 @@ class HighchartsWidget extends HTMLElement {
                 }
             },
             tooltip: {
-                valueDecimals: this.decimalPlaces
+                valueDecimals: 0,
+                shared: true
             },
             exporting: {
                 enabled: true
