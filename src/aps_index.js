@@ -12,14 +12,6 @@
                         <td>Chart Subtitle</td>
                         <td><input id="chartSubtitle" type="text"></td>
                     </tr>
-                    <tr>
-                        <td>X-Axis Title</td>
-                        <td><input id="xAxisTitle" type="text"></td>
-                    </tr>
-                    <tr>
-                        <td>Y-Axis Title</td>
-                        <td><input id="yAxisTitle" type="text"></td>
-                    </tr>
                 </table>
                 <input type="submit" style="display:none;">
         </form>
@@ -39,9 +31,7 @@
                 detail: {
                     properties: {
                         chartTitle: this.chartTitle,
-                        chartSubtitle: this.chartSubtitle,
-                        xAxisTitle: this.xAxisTitle,
-                        yAxisTitle: this.yAxisTitle
+                        chartSubtitle: this.chartSubtitle
                     }
                 }
             }));
@@ -61,22 +51,6 @@
 
         get chartSubtitle() {
             return this._shadowRoot.getElementById('chartSubtitle').value;
-        }
-
-        set xAxisTitle(value) {
-            this._shadowRoot.getElementById('xAxisTitle').value = value;
-        }
-
-        get xAxisTitle() {
-            return this._shadowRoot.getElementById('xAxisTitle').value;
-        }
-
-        set yAxisTitle(value) {
-            this._shadowRoot.getElementById('yAxisTitle').value = value;
-        }
-
-        get yAxisTitle() {
-            return this._shadowRoot.getElementById('yAxisTitle').value;
         }
     }
 

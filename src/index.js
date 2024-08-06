@@ -40,7 +40,7 @@ class HighchartsWidget extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ['chartTitle', 'chartSubtitle', 'xAxisTitle', 'yAxisTitle'];
+        return ['chartTitle', 'chartSubtitle'];
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
@@ -93,17 +93,13 @@ class HighchartsWidget extends HTMLElement {
                 text: this.chartSubtitle || ''
             },
             xAxis: {
-                title: {
-                    enabled: true,
-                    text: this.xAxisTitle || ''
-                }, 
                 type: 'category',
                 categories: categoryData 
             },
             yAxis: {
                 type: 'linear',
                 title: {
-                    text: this.yAxisTitle || ''
+                    enabled: false
                 }
             },
             plotOptions: {

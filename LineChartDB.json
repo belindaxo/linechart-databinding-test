@@ -42,16 +42,6 @@
             "type": "string",
             "description": "The subtitle of the chart",
             "default": ""
-        },
-        "xAxisTitle": {
-            "type": "string",
-            "description": "The title of the x-axis",
-            "default": ""
-        },
-        "yAxisTitle": {
-            "type": "string",
-            "description": "The title of the y-axis",
-            "default": ""
         }
 	},
 	"methods": {
