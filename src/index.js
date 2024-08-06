@@ -151,9 +151,7 @@ class HighchartsWidget extends HTMLElement {
                 }
             },
             tooltip: {
-                formatter: function () {
-                    return this.x + ': ' + numberFormat(this.y);
-                }
+                valueDecimals: this.decimalPlaces
             },
             exporting: {
                 enabled: true
