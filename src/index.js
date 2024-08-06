@@ -50,7 +50,7 @@ class HighchartsWidget extends HTMLElement {
         }
     }
 
-    async _renderChart() {
+    _renderChart() {
         const dataBinding = this.dataBinding;
         if (!dataBinding || dataBinding.state !== 'success') {
             return;
@@ -80,31 +80,29 @@ class HighchartsWidget extends HTMLElement {
             });
         });
 
-        const numberFormat = await NumberFormat.create();
-        numberFormat.setMaximumDecimalPlaces(this.decimalPlaces);
-        numberFormat.setMinimumDecimalPlaces(this.decimalPlaces);
-
-        switch (this.numberFormat) {
-            case 'k':
-                numberFormat.setScalingFactor(1000);
-                numberFormat.setScalingText('k');
-                break;
-            case 'm':
-                numberFormat.setScalingFactor(1000000);
-                numberFormat.setScalingText('m');
-                break;
-            case 'b':
-                numberFormat.setScalingFactor(1000000000);
-                numberFormat.setScalingText('b');
-                break;
-            default:
-                numberFormat.setScalingFactor(1);
-                numberFormat.setScalingText('');
-                break;
+        const numberFormat = (value) =>{
+            let scaledValue = value;
+            let suffix = '';
+            switch (this.numberFormat) {
+                case 'k':
+                    scaledValue = value / 1000;
+                    suffix = 'k';
+                    break;
+                case 'm':
+                    scaledValue = value / 1000000;
+                    suffix = 'm';
+                    break;
+                case 'b':
+                    scaledValue = value / 1000000000;
+                    suffix = 'b';
+                    break;
+                default:
+                    break;
+            }
+            return scaledValue.toFixed(this.decimalPlaces) + suffix;
         }
 
-
-
+    
         const chartOptions = {
             chart: {
                 type: 'line'
@@ -132,7 +130,7 @@ class HighchartsWidget extends HTMLElement {
                     dataLabels: {
                         enabled: true,
                         formatter: function () {
-                            return numberFormat.format(this.y);
+                            return numberFormat(this.y);
                         }
                     },
                     enableMouseTracking: true
@@ -154,7 +152,7 @@ class HighchartsWidget extends HTMLElement {
             },
             tooltip: {
                 formatter: function () {
-                    const points = this.points.map(point => `${point.series.name}: ${numberFormat.format(point.y)}`);
+                    const points = this.points.map(point => `${point.series.name}: ${numberFormat(point.y)}`);
                     return [this.x, ...points];
                 },
                 split: true
