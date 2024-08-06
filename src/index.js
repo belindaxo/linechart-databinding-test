@@ -40,7 +40,7 @@ class HighchartsWidget extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ['chartTitle', 'chartSubtitle'];
+        return ['chartTitle', 'chartSubtitle', 'numberFormat', 'decimalPlaces'];
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
@@ -50,7 +50,7 @@ class HighchartsWidget extends HTMLElement {
         }
     }
 
-    _renderChart() {
+    async _renderChart() {
         const dataBinding = this.dataBinding;
         if (!dataBinding || dataBinding.state !== 'success') {
             return;
@@ -80,6 +80,29 @@ class HighchartsWidget extends HTMLElement {
             });
         });
 
+        const numberFormat = await NumberFormat.create();
+        numberFormat.setMaximumDecimalPlaces(this.decimalPlaces);
+        numberFormat.setMinimumDecimalPlaces(this.decimalPlaces);
+
+        switch (this.numberFormat) {
+            case 'k':
+                numberFormat.setScalingFactor(1000);
+                numberFormat.setScalingText('k');
+                break;
+            case 'm':
+                numberFormat.setScalingFactor(1000000);
+                numberFormat.setScalingText('m');
+                break;
+            case 'b':
+                numberFormat.setScalingFactor(1000000000);
+                numberFormat.setScalingText('b');
+                break;
+            default:
+                numberFormat.setScalingFactor(1);
+                numberFormat.setScalingText('');
+                break;
+        }
+
 
 
         const chartOptions = {
@@ -94,7 +117,8 @@ class HighchartsWidget extends HTMLElement {
             },
             xAxis: {
                 type: 'category',
-                categories: categoryData 
+                categories: categoryData,
+                crosshair: true 
             },
             yAxis: {
                 type: 'linear',
@@ -106,7 +130,10 @@ class HighchartsWidget extends HTMLElement {
             plotOptions: {
                 line: {
                     dataLabels: {
-                        enabled: true
+                        enabled: true,
+                        formatter: function () {
+                            return numberFormat.format(this.y);
+                        }
                     },
                     enableMouseTracking: true
                 },
@@ -124,6 +151,13 @@ class HighchartsWidget extends HTMLElement {
                         }
                     }
                 }
+            },
+            tooltip: {
+                formatter: function () {
+                    const points = this.points.map(point => `${point.series.name}: ${numberFormat.format(point.y)}`);
+                    return [this.x, ...points];
+                },
+                split: true
             },
             exporting: {
                 enabled: true

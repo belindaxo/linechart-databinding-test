@@ -17,7 +17,8 @@
                 text: 'Sample Line Chart'
             },
             xAxis: {
-                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                crosshair: true
             },
             plotOptions: {
                 line: {
@@ -50,24 +51,45 @@
         
     </script>
     <form id="form">
-        <fieldset>
-            <legend style="font-weight: bold;font-size: larger;"> Custom Text Properties </legend>
-            <table>
-                <tr>
-                    <td>Chart Title</td>
-                    <td><input id="chartTitle" type="text"></td>
-                </tr>
-                <tr>
-                    <td>Chart Subtitle</td>
-                    <td><input id="chartSubtitle" type="text"></td>
-                </tr>
-                <tr>
-                    <td>Y-Axis Title</td>
-                    <td><input id="yAxisTitle" type="text"></td>
-                </tr>
-            </table>
-            <input type="submit" style="display:none;">
-        </fieldset>
-    </form>
+        <legend style="font-weight: bold;font-size: 18px;"> Text Properties </legend>
+        <table>
+            <tr>
+                <td>Chart Title</td>
+                <td><input id="chartTitle" type="text"></td>
+            </tr>
+            <tr>
+                <td>Chart Subtitle</td>
+                <td><input id="chartSubtitle" type="text"></td>
+            </tr>
+        </table>
+        <legend style="font-weight: bold;font-size: 18px;"> Number Formatting </legend>
+        <table>
+            <tr>
+                <td>Scale Format</td>
+                <td>
+                    <select id="scaleFormat">
+                        <option value="unformatted">Unformatted</option>
+                        <option value="k">Thousands (k)</option>
+                        <option value="m">Millions (m)</option>
+                        <option value="b">Billions (b)</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Decimal Places</td>
+                <td>
+                    <select id="decimalPlaces">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <input type="submit" style="display:none;">
+</form>
 </body>
 </html>

@@ -13,6 +13,33 @@
                         <td><input id="chartSubtitle" type="text"></td>
                     </tr>
                 </table>
+                <legend style="font-weight: bold;font-size: 18px;"> Number Formatting </legend>
+                <table>
+                    <tr>
+                        <td>Scale Format</td>
+                        <td>
+                            <select id="numberFormat">
+                                <option value="unformatted">Unformatted</option>
+                                <option value="k">Thousands (k)</option>
+                                <option value="m">Millions (m)</option>
+                                <option value="b">Billions (b)</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Decimal Places</td>
+                        <td>
+                            <select id="decimalPlaces">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
                 <input type="submit" style="display:none;">
         </form>
     `;
@@ -31,7 +58,9 @@
                 detail: {
                     properties: {
                         chartTitle: this.chartTitle,
-                        chartSubtitle: this.chartSubtitle
+                        chartSubtitle: this.chartSubtitle,
+                        numberFormat: this.numberFormat,
+                        decimalPlaces: this.decimalPlaces
                     }
                 }
             }));
@@ -52,6 +81,23 @@
         get chartSubtitle() {
             return this._shadowRoot.getElementById('chartSubtitle').value;
         }
+
+        set numberFormat(value) {
+            this._shadowRoot.getElementById('numberFormat').value = value;
+        }
+
+        get numberFormat() {
+            return this._shadowRoot.getElementById('numberFormat').value;
+        }
+
+        set decimalPlaces(value) {
+            this._shadowRoot.getElementById('decimalPlaces').value = value;
+        }
+
+        get decimalPlaces() {
+            return this._shadowRoot.getElementById('decimalPlaces').value;
+        }
+   
     }
 
     customElements.define('com-sap-sample-linechartdb-aps', HighchartsWidgetAps);
