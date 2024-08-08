@@ -1,47 +1,138 @@
 (function() {
     let template = document.createElement('template');
     template.innerHTML = `
-        <form id="form">
-                <legend style="font-weight: bold;font-size: 18px;"> Text Properties </legend>
+    <form id="form">
+        <legend style="font-weight: bold;font-size: 18px;"> Font </legend>
+        <table>
+            <tr>
+                <td>Chart Title</td>
+            </tr>
+            <tr>
+                <td><input id="chartTitle" type="text"></td>
+            </tr>
+            <tr>
                 <table>
                     <tr>
-                        <td>Chart Title</td>
-                        <td><input id="chartTitle" type="text"></td>
+                        <td>Size</td>
+                        <td>Font Style</td>
+                        <td>Alignment</td>
                     </tr>
                     <tr>
-                        <td>Chart Subtitle</td>
-                        <td><input id="chartSubtitle" type="text"></td>
-                    </tr>
-                </table>
-                <legend style="font-weight: bold;font-size: 18px;"> Number Formatting </legend>
-                <table>
-                    <tr>
-                        <td>Scale Format</td>
                         <td>
-                            <select id="numberFormat">
-                                <option value="unformatted" selected>Unformatted</option>
-                                <option value="k">Thousands (k)</option>
-                                <option value="m">Millions (m)</option>
-                                <option value="b">Billions (b)</option>
+                            <select id="titleSize">
+                                <option value="10">10</option>
+                                <option value="12">12</option>
+                                <option value="14">14</option>
+                                <option value="16">16</option>
+                                <option value="18">18</option>
+                                <option value="20" selected>20</option>
+                                <option value="22">22</option>
+                                <option value="24">24</option>
+                                <option value="32">32</option>
+                                <option value="48">48</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select id="titleFontStyle">
+                                <option value="regular">Regular</option>
+                                <option value="italic">Italic</option>
+                                <option value="bold" selected>Bold</option>
+                                <option value="boldItalic">Bold Italic</option>
+                                <option value="black">Black</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select id="titleAlignment">
+                                <option value="left">Left</option>
+                                <option value="center" selected>Center</option>
+                                <option value="right">Right</option>
                             </select>
                         </td>
                     </tr>
+                </table>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td>Chart Subtitle</td>
+            </tr>
+            <tr>
+                <td><input id="chartSubtitle" type="text"></td>
+            </tr>
+            <tr>
+                <table>
                     <tr>
-                        <td>Decimal Places</td>
+                        <td>Size</td>
+                        <td>Font Style</td>
+                        <td>Alignment</td>
+                    </tr>
+                    <tr>
                         <td>
-                            <select id="decimalPlaces">
-                                <option value="0">0</option>
-                                <option value="1">1</option>
-                                <option value="2" selected>2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
+                            <select id="subtitleSize">
+                                <option value="10">10</option>
+                                <option value="12" selected>12</option>
+                                <option value="14">14</option>
+                                <option value="16">16</option>
+                                <option value="18">18</option>
+                                <option value="20">20</option>
+                                <option value="22">22</option>
+                                <option value="24">24</option>
+                                <option value="32">32</option>
+                                <option value="48">48</option>
+                            </select>
+                        <td>
+                            <select id="subtitleFontStyle">
+                                <option value="regular" selected>Regular</option>
+                                <option value="italic">Italic</option>
+                                <option value="bold">Bold</option>
+                                <option value="boldItalic">Bold Italic</option>
+                                <option value="black">Black</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select id="subtitleAlignment">
+                                <option value="left">Left</option>
+                                <option value="center" selected>Center</option>
+                                <option value="right">Right</option>
                             </select>
                         </td>
                     </tr>
                 </table>
-                <input type="submit" style="display:none;">
-        </form>
+            </tr>
+        </table>
+        <legend style="font-weight: bold;font-size: 18px;"> Number Formatting </legend>
+        <table>
+            <tr>
+                <td>Scale Format</td>
+            </tr>
+            <tr>
+                <td>
+                    <select id="scaleFormat">
+                        <option value="unformatted" selected>Unformatted</option>
+                        <option value="k">Thousands (k)</option>
+                        <option value="m">Millions (m)</option>
+                        <option value="b">Billions (b)</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Decimal Places</td>
+            </tr>
+            <tr>
+                <td>
+                    <select id="decimalPlaces">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2" selected>2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <input type="submit" style="display:none;">
+</form>
     `;
 
     class HighchartsWidgetAps extends HTMLElement {
@@ -52,6 +143,12 @@
             this._shadowRoot.getElementById('form').addEventListener('submit', this._submit.bind(this));
             this._shadowRoot.getElementById('numberFormat').addEventListener('change', this._submit.bind(this));
             this._shadowRoot.getElementById('decimalPlaces').addEventListener('change', this._submit.bind(this));
+            this._shadowRoot.getElementById('titleSize').addEventListener('change', this._submit.bind(this));
+            this._shadowRoot.getElementById('titleFontStyle').addEventListener('change', this._submit.bind(this));
+            this._shadowRoot.getElementById('titleAlignment').addEventListener('change', this._submit.bind(this));
+            this._shadowRoot.getElementById('subtitleSize').addEventListener('change', this._submit.bind(this));
+            this._shadowRoot.getElementById('subtitleFontStyle').addEventListener('change', this._submit.bind(this));
+            this._shadowRoot.getElementById('subtitleAlignment').addEventListener('change', this._submit.bind(this));
         }
 
         _submit(e) {
@@ -60,7 +157,13 @@
                 detail: {
                     properties: {
                         chartTitle: this.chartTitle,
+                        titleSize: this.titleSize,
+                        titleFontStyle: this.titleFontStyle,
+                        titleAlignment: this.titleAlignment,
                         chartSubtitle: this.chartSubtitle,
+                        subtitleSize: this.subtitleSize,
+                        subtitleFontStyle: this.subtitleFontStyle,
+                        subtitleAlignment: this.subtitleAlignment,
                         numberFormat: this.numberFormat,
                         decimalPlaces: this.decimalPlaces
                     }
@@ -78,12 +181,60 @@
             return this._shadowRoot.getElementById('chartTitle').value;
         }
 
+        set titleSize(value) {
+            this._shadowRoot.getElementById('titleSize').value = value;
+        }
+
+        get titleSize() {
+            return this._shadowRoot.getElementById('titleSize').value;
+        }
+
+        set titleFontStyle(value) {
+            this._shadowRoot.getElementById('titleFontStyle').value = value;
+        }
+
+        get titleFontStyle() {
+            return this._shadowRoot.getElementById('titleFontStyle').value;
+        }
+
+        set titleAlignment(value) {
+            this._shadowRoot.getElementById('titleAlignment').value = value;
+        }
+
+        get titleAlignment() {
+            return this._shadowRoot.getElementById('titleAlignment').value;
+        }
+
         set chartSubtitle(value) {
             this._shadowRoot.getElementById('chartSubtitle').value = value;
         }
 
         get chartSubtitle() {
             return this._shadowRoot.getElementById('chartSubtitle').value;
+        }
+
+        set subtitleSize(value) {
+            this._shadowRoot.getElementById('subtitleSize').value = value;
+        }
+
+        get subtitleSize() {
+            return this._shadowRoot.getElementById('subtitleSize').value;
+        }
+
+        set subtitleFontStyle(value) {
+            this._shadowRoot.getElementById('subtitleFontStyle').value = value;
+        }
+
+        get subtitleFontStyle() {
+            return this._shadowRoot.getElementById('subtitleFontStyle').value;
+        }
+
+        set subtitleAlignment(value) {
+            this._shadowRoot.getElementById('subtitleAlignment').value = value;
+        }
+
+        get subtitleAlignment() {
+            return this._shadowRoot.getElementById('subtitleAlignment').value;
         }
 
         set numberFormat(value) {

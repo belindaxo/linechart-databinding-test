@@ -38,10 +38,40 @@
             "description": "The title of the chart",
             "default": ""
         },
+        "titleSize": {
+            "type": "integer",
+            "description": "The font size of the title text",
+            "default": 20
+        },
+        "titleFontStyle": {
+            "type": "string",
+            "description": "The font style of the title text",
+            "default": "bold"
+        },
+        "titleAlignment": {
+            "type": "string",
+            "description": "The alignment of the title text",
+            "default": "center"
+        },
         "chartSubtitle": {
             "type": "string",
             "description": "The subtitle of the chart",
             "default": ""
+        },
+        "subtitleSize": {
+            "type": "integer",
+            "description": "The font size of the subtitle text",
+            "default": 12
+        },
+        "subtitleFontStyle": {
+            "type": "string",
+            "description": "The font style of the subtitle text",
+            "default": "regular"
+        },
+        "subtitleAlignment": {
+            "type": "string",
+            "description": "The alignment of the subtitle text",
+            "default": "center"
         },
         "numberFormat": {
             "type": "string",
