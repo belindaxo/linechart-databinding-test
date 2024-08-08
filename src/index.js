@@ -85,7 +85,7 @@ class HighchartsWidget extends HTMLElement {
             });
         });
 
-        const numberFormat = (value) =>{
+        const scaleFormat = (value) =>{
             let scaledValue = value;
             let suffix = '';
             switch (this.scaleFormat) {
@@ -108,6 +108,7 @@ class HighchartsWidget extends HTMLElement {
         }
     
         const chartOptions = {
+            colors: ['#003f5c', '#2f4b7c', '#665191', '#a05195', '#d45087', '#f95d6a', '#ff7c43', '#ffa600'],
             chart: {
                 type: 'line'
             },
@@ -136,18 +137,22 @@ class HighchartsWidget extends HTMLElement {
                 type: 'linear',
                 title: {
                     enabled: false
-                }
+                },
+                visible: false
                 
             },
             plotOptions: {
                 line: {
                     dataLabels: {
-                        enabled: true,
+                        enabled: false,
                         formatter: function () {
-                            return numberFormat(this.y);
+                            return scaleFormat(this.y);
                         }
                     },
-                    enableMouseTracking: true
+                    enableMouseTracking: true,
+                    marker: {
+                        enabled: false
+                    }
                 },
                 series: {
                     allowPointSelect: true,
