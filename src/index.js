@@ -40,9 +40,7 @@ class HighchartsWidget extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ['chartTitle', 'titleSize', 'titleFontStyle', 'titleAlignment', 
-            'chartSubtitle', 'subtitleSize', 'subtitleFontStyle', 'subtitleAlignment',
-            'numberFormat', 'decimalPlaces'];
+        return ['chartTitle', 'titleSize', 'titleFontStyle', 'titleAlignment', 'chartSubtitle', 'subtitleSize', 'subtitleFontStyle', 'subtitleAlignment', 'numberFormat', 'decimalPlaces'];
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
@@ -122,7 +120,7 @@ class HighchartsWidget extends HTMLElement {
                 align: this.subtitleAlignment || 'center',
                 style: {
                     fontSize: this.subtitleSize || '12',
-                    fontStyle: this.subtitleFontStyle || 'regular',
+                    fontStyle: this.subtitleFontStyle || 'normal',
                 }
             },
             xAxis: {
