@@ -73,7 +73,7 @@
             "description": "The alignment of the subtitle text",
             "default": "center"
         },
-        "numberFormat": {
+        "scaleFormat": {
             "type": "string",
             "description": "The scale of the numbers (unformatted, k, m, b)",
             "default": "unformatted"

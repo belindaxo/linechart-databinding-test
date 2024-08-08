@@ -44,7 +44,7 @@ class HighchartsWidget extends HTMLElement {
             'titleSize', 'titleFontStyle', 'titleAlignment', 
             'chartSubtitle', 
             'subtitleSize', 'subtitleFontStyle', 'subtitleAlignment', 
-            'numberFormat', 
+            'scaleFormat', 
             'decimalPlaces'];
     }
 
@@ -88,7 +88,7 @@ class HighchartsWidget extends HTMLElement {
         const numberFormat = (value) =>{
             let scaledValue = value;
             let suffix = '';
-            switch (this.numberFormat) {
+            switch (this.scaleFormat) {
                 case 'k':
                     scaledValue = value / 1000;
                     suffix = 'k';

@@ -159,7 +159,7 @@
                         subtitleSize: this.subtitleSize,
                         subtitleFontStyle: this.subtitleFontStyle,
                         subtitleAlignment: this.subtitleAlignment,
-                        numberFormat: this.numberFormat,
+                        scaleFormat: this.scaleFormat,
                         decimalPlaces: this.decimalPlaces
                     }
                 }
