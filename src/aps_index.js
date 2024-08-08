@@ -2,7 +2,7 @@
     let template = document.createElement('template');
     template.innerHTML = `
         <form id="form">
-            <legend style="font-weight: bold;font-size: 18px;">Font</legend>
+            <legend style="font-weight: bold;font-size: 18px;"> Font </legend>
             <table>
                 <tr>
                     <td>Chart Title</td>
@@ -20,25 +20,22 @@
                         <tr>
                             <td>
                                 <select id="titleSize">
-                                    <option value="10">10</option>
-                                    <option value="12">12</option>
-                                    <option value="14">14</option>
-                                    <option value="16">16</option>
-                                    <option value="18">18</option>
-                                    <option value="20" selected>20</option>
-                                    <option value="22">22</option>
-                                    <option value="24">24</option>
-                                    <option value="32">32</option>
-                                    <option value="48">48</option>
+                                    <option value="10px">10</option>
+                                    <option value="12px">12</option>
+                                    <option value="14px">14</option>
+                                    <option value="16px">16</option>
+                                    <option value="18px">18</option>
+                                    <option value="20px" selected>20</option>
+                                    <option value="22px">22</option>
+                                    <option value="24px">24</option>
+                                    <option value="32px">32</option>
+                                    <option value="48px">48</option>
                                 </select>
                             </td>
                             <td>
                                 <select id="titleFontStyle">
-                                    <option value="normal">Regular</option>
-                                    <option value="italic">Italic</option>
+                                    <option value="normal">Normal</option>
                                     <option value="bold" selected>Bold</option>
-                                    <option value="boldItalic">Bold Italic</option>
-                                    <option value="black">Black</option>
                                 </select>
                             </td>
                             <td>
@@ -69,25 +66,22 @@
                         <tr>
                             <td>
                                 <select id="subtitleSize">
-                                    <option value="10">10</option>
-                                    <option value="12" selected>12</option>
-                                    <option value="14">14</option>
-                                    <option value="16">16</option>
-                                    <option value="18">18</option>
-                                    <option value="20">20</option>
-                                    <option value="22">22</option>
-                                    <option value="24">24</option>
-                                    <option value="32">32</option>
-                                    <option value="48">48</option>
+                                    <option value="10px">10</option>
+                                    <option value="12px" selected>12</option>
+                                    <option value="14px">14</option>
+                                    <option value="16px">16</option>
+                                    <option value="18px">18</option>
+                                    <option value="20px">20</option>
+                                    <option value="22px">22</option>
+                                    <option value="24px">24</option>
+                                    <option value="32px">32</option>
+                                    <option value="48px">48</option>
                                 </select>
                             </td>
                             <td>
                                 <select id="subtitleFontStyle">
-                                    <option value="normal" selected>Regular</option>
+                                    <option value="normal" selected>Normal</option>
                                     <option value="italic">Italic</option>
-                                    <option value="bold">Bold</option>
-                                    <option value="boldItalic">Bold Italic</option>
-                                    <option value="black">Black</option>
                                 </select>
                             </td>
                             <td>

@@ -40,7 +40,12 @@ class HighchartsWidget extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ['chartTitle', 'titleSize', 'titleFontStyle', 'titleAlignment', 'chartSubtitle', 'subtitleSize', 'subtitleFontStyle', 'subtitleAlignment', 'numberFormat', 'decimalPlaces'];
+        return ['chartTitle', 
+            'titleSize', 'titleFontStyle', 'titleAlignment', 
+            'chartSubtitle', 
+            'subtitleSize', 'subtitleFontStyle', 'subtitleAlignment', 
+            'numberFormat', 
+            'decimalPlaces'];
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
@@ -101,7 +106,6 @@ class HighchartsWidget extends HTMLElement {
             }
             return scaledValue.toFixed(this.decimalPlaces);
         }
-
     
         const chartOptions = {
             chart: {
@@ -111,15 +115,15 @@ class HighchartsWidget extends HTMLElement {
                 text: this.chartTitle || '',
                 align: this.titleAlignment || 'center',
                 style: {
-                    fontSize: this.titleSize || '20',
-                    fontStyle: this.titleFontStyle || 'bold',
+                    fontSize: this.titleSize || '20px',
+                    fontWeight: this.titleFontStyle || 'bold',
                 }
             },
             subtitle: {
                 text: this.chartSubtitle || '',
                 align: this.subtitleAlignment || 'center',
                 style: {
-                    fontSize: this.subtitleSize || '12',
+                    fontSize: this.subtitleSize || '12px',
                     fontStyle: this.subtitleFontStyle || 'normal',
                 }
             },

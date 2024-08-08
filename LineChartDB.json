@@ -39,9 +39,9 @@
             "default": ""
         },
         "titleSize": {
-            "type": "integer",
+            "type": "string",
             "description": "The font size of the title text",
-            "default": 20
+            "default": "20px"
         },
         "titleFontStyle": {
             "type": "string",
@@ -59,9 +59,9 @@
             "default": ""
         },
         "subtitleSize": {
-            "type": "integer",
+            "type": "string",
             "description": "The font size of the subtitle text",
-            "default": 12
+            "default": "12px"
         },
         "subtitleFontStyle": {
             "type": "string",
