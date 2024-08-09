@@ -7,8 +7,8 @@
     <script src="https://code.highcharts.com/highcharts.js"></script>
 </head>
 <body>
-    <div id="container" style="width: 100%; height: 400px;"></div>
-    <script>
+    <!-- <div id="container" style="width: 100%; height: 400px;"></div> -->
+    <!-- <script>
         Highcharts.chart('container', {
             chart: {
                 type: 'line'
@@ -63,7 +63,7 @@
         });
 
         
-    </script>
+    </script> -->
     <form id="form">
         <legend style="font-weight: bold;font-size: 18px;"> Font </legend>
         <table>
@@ -79,6 +79,7 @@
                         <td>Size</td>
                         <td>Font Style</td>
                         <td>Alignment</td>
+                        <td>Color</td>
                     </tr>
                     <tr>
                         <td>
@@ -87,8 +88,8 @@
                                 <option value="12px">12</option>
                                 <option value="14px">14</option>
                                 <option value="16px">16</option>
-                                <option value="18px">18</option>
-                                <option value="20px" selected>20</option>
+                                <option value="18px" selected>18</option>
+                                <option value="20px">20</option>
                                 <option value="22px">22</option>
                                 <option value="24px">24</option>
                                 <option value="32px">32</option>
@@ -108,6 +109,9 @@
                                 <option value="right">Right</option>
                             </select>
                         </td>
+                        <td>
+                            <input id="titleColor" type="color" value="#000000">
+                        </td>
                     </tr>
                 </table>
             </tr>
@@ -125,6 +129,7 @@
                         <td>Size</td>
                         <td>Font Style</td>
                         <td>Alignment</td>
+                        <td>Color</td>
                     </tr>
                     <tr>
                         <td>
@@ -153,6 +158,9 @@
                                 <option value="center" selected>Center</option>
                                 <option value="right">Right</option>
                             </select>
+                        </td>
+                        <td>
+                            <input id="subtitleColor" type="color" value="#000000">
                         </td>
                     </tr>
                 </table>
@@ -189,7 +197,132 @@
                 </td>
             </tr>
         </table>
+        <legend style="font-weight: bold;font-size: 18px;"> Legend </legend>
+        <table>
+            <tr>
+                <td>
+                    <input id="showLegend" type="checkbox" checked>
+                    <label for="showLegend">Show legend</label>
+                </td>
+            </tr>
+            <tr>
+                <td>Layout</td>
+                <td>Alignment</td>
+            </tr>
+            <tr>
+                <td>
+                    <select id="legendLayout">
+                        <option value="horizontal" selected>Horizontal</option>
+                        <option value="vertical">Vertical</option>
+
+                    </select>
+                </td>
+                <td>
+                    <select id="legendAlignment">
+                        <option value="left">Left</option>
+                        <option value="center" selected>Center</option>
+                        <option value="right">Right</option>
+                    </select>
+            </tr>
+        </table>
+        <legend style="font-weight: bold;font-size: 18px;">Tooltip</legend>
+        <table>
+            <tr>
+                <td>
+                    <input id="showTooltip" type="checkbox">
+                    <label for="showTooltip">Show tooltip</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input id="tooltipShared" type="checkbox">
+                    <label for="tooltipShared">Enable shared tooltip</label>
+                </td>
+            </tr>
+        </table>
+        <legend style="font-weight: bold;font-size: 18px;">Data Point</legend>
+        <table>
+            <tr>
+                <td>
+                    <input id="showDataLabels" type="checkbox" checked>
+                    <label for="showDataLabels">Show data labels</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input id="showDataMarkers" type="checkbox" checked>
+                    <label for="showDataMarkers">Show data markers</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input id="allowLabelOverlap" type="checkbox">
+                    <label for="allowLabelOverlap">Allow data label overlap</label>
+                </td>
+            </tr>
+        </table>
+        <legend style="font-weight: bold;font-size: 18px;">Axis</legend>
+        <table>
+            <tr>
+                <table>
+                    <tr>
+                        <td></td>
+                        <td>X-Axis</td>
+                        <td>Y-Axis</td>
+                    </tr>
+                    <tr>
+                        <td>Show axis labels</td>
+                        <td>
+                            <input id="showXAxisLabels" type="checkbox" checked>
+                        </td>
+                        <td>
+                            <input id="showYAxisLabels" type="checkbox" checked>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Enable crosshair</td>
+                        <td>
+                            <input id="enableXAxisCrosshair" type="checkbox">
+                        </td>
+                        <td>
+                            <input id="enableYAxisCrosshair" type="checkbox">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Enable zooming</td>
+                        <td>
+                            <input id="enableXAxisZoom" type="checkbox">
+                        </td>
+                        <td>
+                            <input id="enableYAxisZoom" type="checkbox">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Enable panning</td>
+                        <td>
+                            <input id="enableXAxisPan" type="checkbox">
+                        </td>
+                        <td>
+                            <input id="enableYAxisPan" type="checkbox">
+                        </td>
+                    </tr>
+                </table>
+            </tr>       
+        </table>
+        <legend style="font-weight: bold;font-size: 18px;">Color Theme</legend>
         <input type="submit" style="display:none;">
     </form>
 </body>
 </html>
+
+
+<table>
+    <tr>Themes</tr>
+    <tr>
+        <td>
+            <select id="colorTheme">
+                <option value="default" selected>Default</option>
+            </select>
+        </td>
+    </tr>
+</table>

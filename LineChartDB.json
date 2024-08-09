@@ -53,6 +53,11 @@
             "description": "The alignment of the title text",
             "default": "center"
         },
+        "titleColor": {
+            "type": "string",
+            "description": "The color of the title text",
+            "default": "#333333"
+        },
         "chartSubtitle": {
             "type": "string",
             "description": "The subtitle of the chart",
@@ -73,6 +78,11 @@
             "description": "The alignment of the subtitle text",
             "default": "center"
         },
+        "subtitleColor": {
+            "type": "string",
+            "description": "The color of the subtitle text",
+            "default": "#666666"
+        },
         "scaleFormat": {
             "type": "string",
             "description": "The scale of the numbers (unformatted, k, m, b)",
@@ -82,6 +92,86 @@
             "type": "integer",
             "description": "The number of decimal places to display",
             "default": 2
+        },
+        "showLegend": {
+            "type": "boolean",
+            "description": "Show the legend",
+            "default": true
+        },
+        "legendLayout": {
+            "type": "string",
+            "description": "The layout of the legend",
+            "default": "horizontal"
+        },
+        "legendAlignment": {
+            "type": "string",
+            "description": "The alignment of the legend",
+            "default": "center"
+        },
+        "showTooltip": {
+            "type": "boolean",
+            "description": "Show the tooltip",
+            "default": true
+        },
+        "tooltipShared": {
+            "type": "boolean",
+            "description": "enable shared tooltip format",
+            "default": false
+        },
+        "showDataLabels": {
+            "type": "boolean",
+            "description": "Show the data labels",
+            "default": false
+        },
+        "showDataMarkers": {
+            "type": "boolean",
+            "description": "Show the data markers",
+            "default": true
+        },
+        "allowLabelOverlap": {
+            "type": "boolean",
+            "description": "Allow data label overlap",
+            "default": false
+        },
+        "showXAxisLabels": {
+            "type": "boolean",
+            "description": "Show the x-axis labels",
+            "default": true
+        },
+        "showYAxisLabels": {
+            "type": "boolean",
+            "description": "Show the y-axis labels",
+            "default": true
+        },
+        "enableXAxisCrosshair": {
+            "type": "boolean",
+            "description": "Enable the x-axis crosshair",
+            "default": false
+        },
+        "enableYAxisCrosshair": {
+            "type": "boolean",
+            "description": "Enable the y-axis crosshair",
+            "default": false
+        },
+        "enableXAxisZoom": {
+            "type": "boolean",
+            "description": "Enable x-axis zooming",
+            "default": true
+        },
+        "enableYAxisZoom": {
+            "type": "boolean",
+            "description": "Enable y-axis zooming",
+            "default": true
+        },
+        "enableXAxisPan": {
+            "type": "boolean",
+            "description": "Enable x-axis panning",
+            "default": true
+        },
+        "enableYAxisPan": {
+            "type": "boolean",
+            "description": "Enable y-axis panning",
+            "default": true
         }
 	},
 	"methods": {

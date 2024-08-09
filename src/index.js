@@ -40,12 +40,16 @@ class HighchartsWidget extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ['chartTitle', 
-            'titleSize', 'titleFontStyle', 'titleAlignment', 
-            'chartSubtitle', 
-            'subtitleSize', 'subtitleFontStyle', 'subtitleAlignment', 
-            'scaleFormat', 
-            'decimalPlaces'];
+        return [
+            'chartTitle', 'titleSize', 'titleFontStyle', 'titleAlignment', 'titleColor',                // Title properties
+            'chartSubtitle', 'subtitleSize', 'subtitleFontStyle', 'subtitleAlignment', 'subtitleColor', // Subtitle properties
+            'scaleFormat', 'decimalPlaces',                                                             // Number formatting
+            'showLegend', 'legendLayout', 'legendAlignment',                                            // Legend properties 
+            'showTooltip', 'tooltipShared',                                                             // Tooltip properties
+            'showDataLabels', 'showDataMarkers', 'allowLabelOverlap',                                   // Data label properties
+            'showXAxisLabels', 'showYAxisLabels', 'enableXAxisCrosshair', 'enableYAxisCrosshair',       // Axis properties
+            'enableXAxisZoom', 'enableYAxisZoom', 'enableXAxisPan', 'enableYAxisPan'                    // Axis zoom and pan properties  
+        ];
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
@@ -117,6 +121,7 @@ class HighchartsWidget extends HTMLElement {
                 style: {
                     fontSize: this.titleSize || '20px',
                     fontWeight: this.titleFontStyle || 'bold',
+                    color: this.titleColor || '#333333'
                 }
             },
             subtitle: {
@@ -125,32 +130,46 @@ class HighchartsWidget extends HTMLElement {
                 style: {
                     fontSize: this.subtitleSize || '12px',
                     fontStyle: this.subtitleFontStyle || 'normal',
+                    color: this.subtitleColor || '#666666'
                 }
+            },
+            legend: {
+                enabled: this.showLegend || true,
+                layout: this.legendLayout || 'horizontal',
+                align: this.legendAlignment || 'center'
             },
             xAxis: {
                 type: 'category',
                 categories: categoryData,
-                crosshair: true 
+                labels: {
+                    enabled: this.showXAxisLabels || true
+                },
+                crosshair: this.showXAxisCrosshair || false,
+                zoomEnabled: this.enableXAxisZoom || true,
+                panningEnabled: this.enableXAxisPan || true
             },
             yAxis: {
                 type: 'linear',
-                title: {
-                    enabled: false
+                labels: {
+                    enabled: this.showYAxisLabels || true,
                 },
-                visible: false
+                crosshair: this.showYAxisCrosshair || false,
+                zoomEnabled: this.enableYAxisZoom || true,
+                panningEnabled: this.enableYAxisPan || true
                 
             },
             plotOptions: {
                 line: {
                     dataLabels: {
-                        enabled: false,
+                        enabled: this.showDataLabels || false,
+                        allowOverlap: this.allowLabelOverlap || false,
                         formatter: function () {
                             return scaleFormat(this.y);
                         }
                     },
                     enableMouseTracking: true,
                     marker: {
-                        enabled: false
+                        enabled: this.showDataMarkers || true
                     }
                 },
                 series: {
@@ -170,7 +189,8 @@ class HighchartsWidget extends HTMLElement {
             },
             tooltip: {
                 valueDecimals: 0,
-                shared: true
+                shared: this.tooltipShared || false,
+                enabled: this.showTooltip || true,
             },
             exporting: {
                 enabled: true
