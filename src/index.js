@@ -143,18 +143,14 @@ class HighchartsWidget extends HTMLElement {
                 labels: {
                     enabled: this.showXAxisLabels || true
                 },
-                crosshair: this.showXAxisCrosshair || false,
-                zoomEnabled: this.enableXAxisZoom || true,
-                panningEnabled: this.enableXAxisPan || true
+                crosshair: this.showXAxisCrosshair || true,
             },
             yAxis: {
                 type: 'linear',
                 labels: {
                     enabled: this.showYAxisLabels || true,
                 },
-                crosshair: this.showYAxisCrosshair || false,
-                zoomEnabled: this.enableYAxisZoom || true,
-                panningEnabled: this.enableYAxisPan || true,
+                crosshair: this.showYAxisCrosshair || true,
                 title: {
                     text: undefined
                 }
