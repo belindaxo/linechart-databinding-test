@@ -132,16 +132,6 @@
             "type": "boolean",
             "description": "Show the y-axis labels",
             "default": true
-        },
-        "enableXAxisCrosshair": {
-            "type": "boolean",
-            "description": "Enable the x-axis crosshair",
-            "default": false
-        },
-        "enableYAxisCrosshair": {
-            "type": "boolean",
-            "description": "Enable the y-axis crosshair",
-            "default": false
         }
 	},
 	"methods": {

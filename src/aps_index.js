@@ -204,15 +204,6 @@
                             <input id="showYAxisLabels" type="checkbox" checked>
                         </td>
                     </tr>
-                    <tr>
-                        <td>Enable crosshair</td>
-                        <td>
-                            <input id="enableXAxisCrosshair" type="checkbox">
-                        </td>
-                        <td>
-                            <input id="enableYAxisCrosshair" type="checkbox">
-                        </td>
-                    </tr>
                 </table>
             </tr>       
         </table>
@@ -244,8 +235,6 @@
             this._shadowRoot.getElementById('allowLabelOverlap').addEventListener('change', this._submit.bind(this));
             this._shadowRoot.getElementById('showXAxisLabels').addEventListener('change', this._submit.bind(this));
             this._shadowRoot.getElementById('showYAxisLabels').addEventListener('change', this._submit.bind(this));
-            this._shadowRoot.getElementById('enableXAxisCrosshair').addEventListener('change', this._submit.bind(this));
-            this._shadowRoot.getElementById('enableYAxisCrosshair').addEventListener('change', this._submit.bind(this));
         }
 
         _submit(e) {
@@ -272,9 +261,7 @@
                         showDataMarkers: this.showDataMarkers,
                         allowLabelOverlap: this.allowLabelOverlap,
                         showXAxisLabels: this.showXAxisLabels,
-                        showYAxisLabels: this.showYAxisLabels,
-                        enableXAxisCrosshair: this.enableXAxisCrosshair,
-                        enableYAxisCrosshair: this.enableYAxisCrosshair
+                        showYAxisLabels: this.showYAxisLabels
                     }
                 }
             }));
@@ -440,22 +427,6 @@
 
         get showYAxisLabels() {
             return this._shadowRoot.getElementById('showYAxisLabels').checked;
-        }
-
-        set enableXAxisCrosshair(value) {
-            this._shadowRoot.getElementById('enableXAxisCrosshair').checked = value;
-        }
-
-        get enableXAxisCrosshair() {
-            return this._shadowRoot.getElementById('enableXAxisCrosshair').checked;
-        }
-
-        set enableYAxisCrosshair(value) {
-            this._shadowRoot.getElementById('enableYAxisCrosshair').checked = value;
-        }
-
-        get enableYAxisCrosshair() {
-            return this._shadowRoot.getElementById('enableYAxisCrosshair').checked;
         }
     }
 

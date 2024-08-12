@@ -47,7 +47,7 @@ class HighchartsWidget extends HTMLElement {
             'legendLayout', 'legendAlignment',                                                          // Legend properties 
             'tooltipShared',                                                                            // Tooltip properties
             'showDataLabels', 'showDataMarkers', 'allowLabelOverlap',                                   // Data label properties
-            'showXAxisLabels', 'showYAxisLabels', 'enableXAxisCrosshair', 'enableYAxisCrosshair'        // Axis properties                
+            'showXAxisLabels', 'showYAxisLabels'                                                        // Axis properties                
         ];
     }
 
@@ -142,15 +142,13 @@ class HighchartsWidget extends HTMLElement {
                 categories: categoryData,
                 labels: {
                     enabled: this.showXAxisLabels || true
-                },
-                crosshair: this.showXAxisCrosshair || true,
+                }
             },
             yAxis: {
                 type: 'linear',
                 labels: {
                     enabled: this.showYAxisLabels || true,
                 },
-                crosshair: this.showYAxisCrosshair || true,
                 title: {
                     text: undefined
                 }
