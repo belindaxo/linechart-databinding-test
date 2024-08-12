@@ -160,12 +160,6 @@
         <table>
             <tr>
                 <td>
-                    <input id="showTooltip" type="checkbox" checked>
-                    <label for="showTooltip">Show tooltip</label>
-                </td>
-            </tr>
-            <tr>
-                <td>
                     <input id="tooltipShared" type="checkbox">
                     <label for="tooltipShared">Enable shared tooltip</label>
                 </td>
@@ -219,24 +213,6 @@
                             <input id="enableYAxisCrosshair" type="checkbox">
                         </td>
                     </tr>
-                    <tr>
-                        <td>Enable zooming</td>
-                        <td>
-                            <input id="enableXAxisZoom" type="checkbox" checked>
-                        </td>
-                        <td>
-                            <input id="enableYAxisZoom" type="checkbox" checked>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Enable panning</td>
-                        <td>
-                            <input id="enableXAxisPan" type="checkbox" checked>
-                        </td>
-                        <td>
-                            <input id="enableYAxisPan" type="checkbox" checked>
-                        </td>
-                    </tr>
                 </table>
             </tr>       
         </table>
@@ -262,7 +238,6 @@
             this._shadowRoot.getElementById('decimalPlaces').addEventListener('change', this._submit.bind(this));
             this._shadowRoot.getElementById('legendLayout').addEventListener('change', this._submit.bind(this));
             this._shadowRoot.getElementById('legendAlignment').addEventListener('change', this._submit.bind(this));
-            this._shadowRoot.getElementById('showTooltip').addEventListener('change', this._submit.bind(this));
             this._shadowRoot.getElementById('tooltipShared').addEventListener('change', this._submit.bind(this));
             this._shadowRoot.getElementById('showDataLabels').addEventListener('change', this._submit.bind(this));
             this._shadowRoot.getElementById('showDataMarkers').addEventListener('change', this._submit.bind(this));
@@ -271,10 +246,6 @@
             this._shadowRoot.getElementById('showYAxisLabels').addEventListener('change', this._submit.bind(this));
             this._shadowRoot.getElementById('enableXAxisCrosshair').addEventListener('change', this._submit.bind(this));
             this._shadowRoot.getElementById('enableYAxisCrosshair').addEventListener('change', this._submit.bind(this));
-            this._shadowRoot.getElementById('enableXAxisZoom').addEventListener('change', this._submit.bind(this));
-            this._shadowRoot.getElementById('enableYAxisZoom').addEventListener('change', this._submit.bind(this));
-            this._shadowRoot.getElementById('enableXAxisPan').addEventListener('change', this._submit.bind(this));
-            this._shadowRoot.getElementById('enableYAxisPan').addEventListener('change', this._submit.bind(this));
         }
 
         _submit(e) {
@@ -296,7 +267,6 @@
                         decimalPlaces: this.decimalPlaces,
                         legendLayout: this.legendLayout,
                         legendAlignment: this.legendAlignment,
-                        showTooltip: this.showTooltip,
                         tooltipShared: this.tooltipShared,
                         showDataLabels: this.showDataLabels,
                         showDataMarkers: this.showDataMarkers,
@@ -304,11 +274,7 @@
                         showXAxisLabels: this.showXAxisLabels,
                         showYAxisLabels: this.showYAxisLabels,
                         enableXAxisCrosshair: this.enableXAxisCrosshair,
-                        enableYAxisCrosshair: this.enableYAxisCrosshair,
-                        enableXAxisZoom: this.enableXAxisZoom,
-                        enableYAxisZoom: this.enableYAxisZoom,
-                        enableXAxisPan: this.enableXAxisPan,
-                        enableYAxisPan: this.enableYAxisPan
+                        enableYAxisCrosshair: this.enableYAxisCrosshair
                     }
                 }
             }));
@@ -428,14 +394,6 @@
             return this._shadowRoot.getElementById('legendAlignment').value;
         }
 
-        set showTooltip(value) {
-            this._shadowRoot.getElementById('showTooltip').checked = value;
-        }
-
-        get showTooltip() {
-            return this._shadowRoot.getElementById('showTooltip').checked;
-        }
-
         set tooltipShared(value) {
             this._shadowRoot.getElementById('tooltipShared').checked = value;
         }
@@ -498,38 +456,6 @@
 
         get enableYAxisCrosshair() {
             return this._shadowRoot.getElementById('enableYAxisCrosshair').checked;
-        }
-
-        set enableXAxisZoom(value) {
-            this._shadowRoot.getElementById('enableXAxisZoom').checked = value;
-        }
-
-        get enableXAxisZoom() {
-            return this._shadowRoot.getElementById('enableXAxisZoom').checked;
-        }
-
-        set enableYAxisZoom(value) {
-            this._shadowRoot.getElementById('enableYAxisZoom').checked = value;
-        }
-
-        get enableYAxisZoom() {
-            return this._shadowRoot.getElementById('enableYAxisZoom').checked;
-        }
-
-        set enableXAxisPan(value) {
-            this._shadowRoot.getElementById('enableXAxisPan').checked = value;
-        }
-
-        get enableXAxisPan() {
-            return this._shadowRoot.getElementById('enableXAxisPan').checked;
-        }
-
-        set enableYAxisPan(value) {
-            this._shadowRoot.getElementById('enableYAxisPan').checked = value;
-        }
-
-        get enableYAxisPan() {
-            return this._shadowRoot.getElementById('enableYAxisPan').checked;
         }
     }
 

@@ -103,11 +103,6 @@
             "description": "The alignment of the legend",
             "default": "center"
         },
-        "showTooltip": {
-            "type": "boolean",
-            "description": "Show the tooltip",
-            "default": true
-        },
         "tooltipShared": {
             "type": "boolean",
             "description": "enable shared tooltip format",
@@ -147,26 +142,6 @@
             "type": "boolean",
             "description": "Enable the y-axis crosshair",
             "default": false
-        },
-        "enableXAxisZoom": {
-            "type": "boolean",
-            "description": "Enable x-axis zooming",
-            "default": true
-        },
-        "enableYAxisZoom": {
-            "type": "boolean",
-            "description": "Enable y-axis zooming",
-            "default": true
-        },
-        "enableXAxisPan": {
-            "type": "boolean",
-            "description": "Enable x-axis panning",
-            "default": true
-        },
-        "enableYAxisPan": {
-            "type": "boolean",
-            "description": "Enable y-axis panning",
-            "default": true
         }
 	},
 	"methods": {

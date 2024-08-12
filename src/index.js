@@ -45,10 +45,9 @@ class HighchartsWidget extends HTMLElement {
             'chartSubtitle', 'subtitleSize', 'subtitleFontStyle', 'subtitleAlignment', 'subtitleColor', // Subtitle properties
             'scaleFormat', 'decimalPlaces',                                                             // Number formatting
             'legendLayout', 'legendAlignment',                                                          // Legend properties 
-            'showTooltip', 'tooltipShared',                                                             // Tooltip properties
+            'tooltipShared',                                                                            // Tooltip properties
             'showDataLabels', 'showDataMarkers', 'allowLabelOverlap',                                   // Data label properties
-            'showXAxisLabels', 'showYAxisLabels', 'enableXAxisCrosshair', 'enableYAxisCrosshair',       // Axis properties
-            'enableXAxisZoom', 'enableYAxisZoom', 'enableXAxisPan', 'enableYAxisPan'                    // Axis zoom and pan properties  
+            'showXAxisLabels', 'showYAxisLabels', 'enableXAxisCrosshair', 'enableYAxisCrosshair'        // Axis properties                
         ];
     }
 
@@ -170,7 +169,10 @@ class HighchartsWidget extends HTMLElement {
                             return scaleFormat(this.y);
                         }
                     },
-                    enableMouseTracking: true
+                    enableMouseTracking: true,
+                    marker: {
+                        enabled: this.showDataMarkers || false
+                    }
                 },
                 series: {
                     allowPointSelect: true,
@@ -185,15 +187,12 @@ class HighchartsWidget extends HTMLElement {
                             }.bind(this)
                         }
                     },
-                    marker: {
-                        enabled: this.showDataMarkers || true
-                    }
+                    
                 }
             },
             tooltip: {
                 valueDecimals: 0,
-                shared: this.tooltipShared || false,
-                enabled: this.showTooltip || true,
+                shared: this.tooltipShared || false
             },
             exporting: {
                 enabled: true
