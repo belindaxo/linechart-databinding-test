@@ -47,7 +47,7 @@
                             </select>
                         </td>
                         <td>
-                            <input id="titleColor" type="color" value="#000000">
+                            <input id="titleColor" type="color" value="#333333">
                         </td>
                     </tr>
                 </table>
@@ -97,7 +97,7 @@
                             </select>
                         </td>
                         <td>
-                            <input id="subtitleColor" type="color" value="#000000">
+                            <input id="subtitleColor" type="color" value="#666666">
                         </td>
                     </tr>
                 </table>
@@ -136,12 +136,6 @@
         </table>
         <legend style="font-weight: bold;font-size: 18px;"> Legend </legend>
         <table>
-            <tr>
-                <td>
-                    <input id="showLegend" type="checkbox" checked>
-                    <label for="showLegend">Show legend</label>
-                </td>
-            </tr>
             <tr>
                 <td>Layout</td>
                 <td>Alignment</td>
@@ -266,7 +260,6 @@
             this._shadowRoot.getElementById('subtitleColor').addEventListener('change', this._submit.bind(this));
             this._shadowRoot.getElementById('scaleFormat').addEventListener('change', this._submit.bind(this));
             this._shadowRoot.getElementById('decimalPlaces').addEventListener('change', this._submit.bind(this));
-            this._shadowRoot.getElementById('showLegend').addEventListener('change', this._submit.bind(this));
             this._shadowRoot.getElementById('legendLayout').addEventListener('change', this._submit.bind(this));
             this._shadowRoot.getElementById('legendAlignment').addEventListener('change', this._submit.bind(this));
             this._shadowRoot.getElementById('showTooltip').addEventListener('change', this._submit.bind(this));
@@ -301,7 +294,6 @@
                         subtitleColor: this.subtitleColor,
                         scaleFormat: this.scaleFormat,
                         decimalPlaces: this.decimalPlaces,
-                        showLegend: this.showLegend,
                         legendLayout: this.legendLayout,
                         legendAlignment: this.legendAlignment,
                         showTooltip: this.showTooltip,
@@ -400,6 +392,10 @@
             this._shadowRoot.getElementById('subtitleColor').value = value;
         }
 
+        get subtitleColor() {
+            return this._shadowRoot.getElementById('subtitleColor').value;
+        }
+
         set scaleFormat(value) {
             this._shadowRoot.getElementById('scaleFormat').value = value;
         }
@@ -414,14 +410,6 @@
 
         get decimalPlaces() {
             return this._shadowRoot.getElementById('decimalPlaces').value;
-        }
-
-        set showLegend(value) {
-            this._shadowRoot.getElementById('showLegend').checked = value;
-        }
-
-        get showLegend() {
-            return this._shadowRoot.getElementById('showLegend').checked;
         }
 
         set legendLayout(value) {

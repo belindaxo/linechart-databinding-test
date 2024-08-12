@@ -44,7 +44,7 @@ class HighchartsWidget extends HTMLElement {
             'chartTitle', 'titleSize', 'titleFontStyle', 'titleAlignment', 'titleColor',                // Title properties
             'chartSubtitle', 'subtitleSize', 'subtitleFontStyle', 'subtitleAlignment', 'subtitleColor', // Subtitle properties
             'scaleFormat', 'decimalPlaces',                                                             // Number formatting
-            'showLegend', 'legendLayout', 'legendAlignment',                                            // Legend properties 
+            'legendLayout', 'legendAlignment',                                                          // Legend properties 
             'showTooltip', 'tooltipShared',                                                             // Tooltip properties
             'showDataLabels', 'showDataMarkers', 'allowLabelOverlap',                                   // Data label properties
             'showXAxisLabels', 'showYAxisLabels', 'enableXAxisCrosshair', 'enableYAxisCrosshair',       // Axis properties
@@ -155,7 +155,10 @@ class HighchartsWidget extends HTMLElement {
                 },
                 crosshair: this.showYAxisCrosshair || false,
                 zoomEnabled: this.enableYAxisZoom || true,
-                panningEnabled: this.enableYAxisPan || true
+                panningEnabled: this.enableYAxisPan || true,
+                title: {
+                    text: undefined
+                }
                 
             },
             plotOptions: {
@@ -167,10 +170,7 @@ class HighchartsWidget extends HTMLElement {
                             return scaleFormat(this.y);
                         }
                     },
-                    enableMouseTracking: true,
-                    marker: {
-                        enabled: this.showDataMarkers || true
-                    }
+                    enableMouseTracking: true
                 },
                 series: {
                     allowPointSelect: true,
@@ -184,6 +184,9 @@ class HighchartsWidget extends HTMLElement {
                                 this._handlePointClick(event);
                             }.bind(this)
                         }
+                    },
+                    marker: {
+                        enabled: this.showDataMarkers || true
                     }
                 }
             },
