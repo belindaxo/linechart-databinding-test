@@ -198,59 +198,43 @@ class HighchartsWidget extends HTMLElement {
 
     _handlePointClick(event) {
         console.log('Event object:', event);
-    
+
         const point = event.target;
         if (!point) {
             console.error('Point is undefined');
             return;
         }
-    
-        console.log('Point object:', point);
-    
+
+        console.log('Point object:', point); 
+
         const dataBinding = this.dataBinding;
         const metadata = dataBinding.metadata;
         const { dimensions } = parseMetadata(metadata);
         const [dimension] = dimensions;
-    
-        // Match the point to the correct dimension data
-        const label = point.name || point.category;  // Funnel 3D typically uses point.name
+
+        const label = point.category || point.name;
         const key = dimension.key;
         const dimensionId = dimension.id;
-    
-        // Finding the matching item in categoryData
-        const matchedCategory = categoryData.find(category => 
-            category.data.some(dataPoint => dataPoint.name === label)
-        );
-    
-        if (!matchedCategory) {
-            console.error('No matching category found for label:', label);
-            return;
-        }
-    
-        // Now finding the actual item in dataBinding.data
-        const selectedItem = dataBinding.data.find(item => 
-            item[matchedCategory.key].label === label
-        );
-    
-        console.log('Selected item:', selectedItem);
-    
+        const selectedItem = dataBinding.data.find(item => item[key].label === label);
+ 
+        console.log('Selected item:', selectedItem); 
+
         const linkedAnalysis = this.dataBindings.getDataBinding('dataBinding').getLinkedAnalysis();
-    
+
         if (event.type === 'select') {
             if (selectedItem) {
                 const selection = {};
-                selection[dimensionId] = selectedItem[matchedCategory.key].id;
-                console.log('Setting filter with selection:', selection);
+                selection[dimensionId] = selectedItem[key].id;
+                console.log('Setting filter with selection:', selection); // Log the filter selection
                 linkedAnalysis.setFilters(selection);
                 this._selectedPoint = point;
             }
         } else if (event.type === 'unselect') {
-            console.log('Removing filters');
+            console.log('Removing filters'); // Log when filters are removed
             linkedAnalysis.removeFilters();
             this._selectedPoint = null;
         }
     }
-    
 }
 
     
