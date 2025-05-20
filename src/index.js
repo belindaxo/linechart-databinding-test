@@ -88,6 +88,14 @@ class HighchartsWidget extends HTMLElement {
             });
         });
 
+        console.log('dataBinding:', dataBinding);
+        console.log('metadata:', metadata);
+        console.log('dimensions:', dimensions);
+        console.log('measures:', measures);
+        console.log('categoryData:', categoryData);
+        console.log('series:', series);
+        console.log('data:', data);
+
         const scaleFormat = (value) =>{
             let scaledValue = value;
             let suffix = '';
